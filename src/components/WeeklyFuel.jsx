@@ -12,8 +12,12 @@ function formatWeek(d) {
 // Deliberately distinct from the monthly Energy grid: weekly cadence, WoW change,
 // "this week" framing. Always nominal — it's a current snapshot, not a trend the
 // inflation toggle should rewrite.
-export default function WeeklyFuel({ weekly }) {
+export default function WeeklyFuel({ weekly, onOpen }) {
   if (!weekly || !weekly.items?.length) return null
+
+  function open(e, key) {
+    onOpen?.(key, e.currentTarget.getBoundingClientRect().top + window.scrollY)
+  }
 
   return (
     <section className="weekly">
@@ -31,7 +35,14 @@ export default function WeeklyFuel({ weekly }) {
         {weekly.items.map((it) => {
           const dir = changeDirection(it.change_wow_pct)
           return (
-            <div key={it.key} className="wfuel">
+            <button
+              key={it.key}
+              id={`card-${it.key}`}
+              type="button"
+              className="wfuel"
+              onClick={(e) => open(e, it.key)}
+              aria-label={`${it.label}, ${formatPrice(it.latest?.value)} ${it.unit}. View weekly price history.`}
+            >
               <span className="wfuel__name">{it.label}</span>
               <div className="wfuel__price">
                 <span className="wfuel__value">{formatPrice(it.latest?.value)}</span>
@@ -42,7 +53,8 @@ export default function WeeklyFuel({ weekly }) {
                 <ChangeChip label="YoY" pct={it.change_yoy_pct} />
               </div>
               <Sparkline history={it.history} direction={dir} width={300} height={46} />
-            </div>
+              <span className="wfuel__cta" aria-hidden="true">View weekly history →</span>
+            </button>
           )
         })}
       </div>

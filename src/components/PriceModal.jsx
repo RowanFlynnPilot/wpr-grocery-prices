@@ -53,7 +53,13 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
 
   const dir = changeDirection(item.change_yoy_pct)
   const work = earnings ? formatWorkTime(item.latest?.value, earnings.latest?.value) : null
-  const realLabel = real ? `real ${item.latest?.period_name} $` : null
+  // Weekly items (pump prices) are a current snapshot — always nominal, never
+  // deflated, regardless of the global toggle.
+  const isReal = real && !item.__weekly
+  const realLabel = isReal ? `real ${item.latest?.period_name} $` : null
+  const shortLabel = item.shortChangeLabel || 'MoM'
+  const cadence = item.__weekly ? 'weeks' : 'months'
+  const sourceLabel = item.source === 'eia' ? 'EIA' : 'U.S. BLS'
 
   function share() {
     const url = new URL(window.location.href)
@@ -102,10 +108,10 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
           <div className="modal__price">
             <span className="modal__value">{formatPrice(item.latest?.value)}</span>
             <span className="modal__unit">{item.unit}</span>
-            {real && <span className="modal__realtag">real&nbsp;$</span>}
+            {isReal && <span className="modal__realtag">real&nbsp;$</span>}
           </div>
           <div className="modal__chips">
-            <ChangeChip label="MoM" pct={item.change_mom_pct} />
+            <ChangeChip label={shortLabel} pct={item.change_mom_pct} />
             <ChangeChip label="YoY" pct={item.change_yoy_pct} />
           </div>
           <span className="modal__asof">as of {item.latest?.period_name}</span>
@@ -120,7 +126,7 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
         )}
 
         <LineChart history={item.history} unit={item.unit} direction={dir} />
-        {real && (
+        {isReal && (
           <p className="modal__realnote">
             Past months shown in today’s dollars (CPI-adjusted,
             {item.geography === 'midwest' ? ' Midwest' : ' U.S.'} all-items).
@@ -139,7 +145,7 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
             ⤓ CSV
           </button>
           <span className="modal__footnote">
-            {item.geography_label} · {item.history?.length || 0} months · U.S. BLS
+            {item.geography_label} · {item.history?.length || 0} {cadence} · {sourceLabel}
           </span>
         </div>
       </div>

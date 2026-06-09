@@ -6,9 +6,10 @@ const MONTHS = [
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ]
 
+// Period strings are "YYYY-MM" (monthly) or "YYYY-MM-DD" (weekly).
 function periodLabel(period) {
-  const [y, m] = period.split('-')
-  return `${MONTHS[Number(m) - 1]} ${y}`
+  const [y, m, d] = period.split('-')
+  return d ? `${MONTHS[Number(m) - 1]} ${Number(d)}, ${y}` : `${MONTHS[Number(m) - 1]} ${y}`
 }
 
 // Full interactive line chart for the detail modal. Dependency-free: rendered at
@@ -67,14 +68,17 @@ export default function LineChart({ history, unit, direction = 'flat', height = 
   // y-axis ticks (5 evenly spaced across the padded range)
   const yTicks = Array.from({ length: 5 }, (_, i) => min + ((max - min) * i) / 4)
 
-  // x-axis labels: one per January present in the series, plus the final point
-  // if its year isn't already labelled (so a short/gappy series still shows an
-  // anchor at the right edge). Dedupe by year so the latest year never repeats.
+  // x-axis labels: one year marker per year present in the series, plus the
+  // final point if its year isn't already labelled. For monthly data the marker
+  // sits on January; for weekly data (dates) it sits on the first point of each
+  // year. Dedupe by year so the latest year never repeats.
+  const weekly = points[0].period.length > 7 // "YYYY-MM-DD" vs "YYYY-MM"
   const seenYears = new Set()
   const xTicks = []
   points.forEach((p, i) => {
     const year = p.period.slice(0, 4)
-    if (p.period.endsWith('-01') && !seenYears.has(year)) {
+    const isYearMark = weekly ? !seenYears.has(year) : (p.period.slice(5, 7) === '01' && !seenYears.has(year))
+    if (isYearMark) {
       seenYears.add(year)
       xTicks.push({ i, label: year })
     }
@@ -165,7 +169,9 @@ export default function LineChart({ history, unit, direction = 'flat', height = 
             <span className="lc-readout__period">{periodLabel(hv.period)}</span>
           </>
         ) : (
-          <span className="lc-readout__hint">Hover or tap the chart to read a month</span>
+          <span className="lc-readout__hint">
+            Hover or tap the chart to read a {weekly ? 'week' : 'month'}
+          </span>
         )}
       </div>
     </div>

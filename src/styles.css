@@ -743,14 +743,49 @@ a {
   gap: 1rem;
 }
 .wfuel {
+  display: block;
+  width: 100%;
+  text-align: left;
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 0.7rem 0.85rem;
   background: var(--cream);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.wfuel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(33, 29, 24, 0.1);
+  border-color: var(--rule-strong);
+}
+.wfuel:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
 }
 .wfuel__name {
   font-weight: 700;
   font-size: 0.95rem;
+}
+.wfuel__cta {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--teal);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.wfuel:hover .wfuel__cta,
+.wfuel:focus-visible .wfuel__cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (hover: none) {
+  .wfuel__cta {
+    opacity: 1;
+    transform: none;
+  }
 }
 .wfuel__price {
   display: flex;

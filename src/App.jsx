@@ -61,7 +61,10 @@ export default function App() {
   // modal to its card (or drop it if it names nothing we track).
   useEffect(() => {
     if (!data || !selectedKey) return
-    if (!data.items.some((it) => it.key === selectedKey)) {
+    const known =
+      data.items.some((it) => it.key === selectedKey) ||
+      (data.weekly_fuel?.items || []).some((w) => w.key === selectedKey)
+    if (!known) {
       setSelectedKey(null)
       return
     }
@@ -101,7 +104,11 @@ export default function App() {
     setSelectedKey(key)
   }
   const itemsByKey = Object.fromEntries(displayItems.map((it) => [it.key, it]))
-  const selectedItem = itemsByKey[selectedKey] || null
+  // Weekly fuel items are normalized into the same modal shape, but stay nominal.
+  const weeklyByKey = Object.fromEntries(
+    (data.weekly_fuel?.items || []).map((w) => [w.key, normalizeWeekly(w)]),
+  )
+  const selectedItem = itemsByKey[selectedKey] || weeklyByKey[selectedKey] || null
 
   return (
     <div className="page">
@@ -122,7 +129,7 @@ export default function App() {
         onOpen={openItem}
       />
 
-      <WeeklyFuel weekly={data.weekly_fuel} />
+      <WeeklyFuel weekly={data.weekly_fuel} onOpen={openItem} />
 
       <Controls
         real={real}
@@ -205,6 +212,39 @@ export default function App() {
       )}
     </div>
   )
+}
+
+// Reshape a weekly_fuel item into the modal/LineChart item shape (period-based,
+// nominal). The __weekly flag tells the modal to label changes "WoW", skip the
+// real-$ treatment, and count history in weeks.
+function normalizeWeekly(w) {
+  return {
+    key: w.key,
+    label: w.label,
+    unit: w.unit,
+    geography: w.geography,
+    geography_label: w.geography_label,
+    source: w.source || 'eia',
+    latest: { period: w.latest.date, period_name: formatWeek(w.latest.date), value: w.latest.value },
+    change_mom_pct: w.change_wow_pct,
+    change_yoy_pct: w.change_yoy_pct,
+    shortChangeLabel: 'WoW',
+    history: (w.history || []).map((h) => ({ period: h.date, value: h.value })),
+    __weekly: true,
+  }
+}
+
+function formatWeek(d) {
+  if (!d) return ''
+  try {
+    return new Date(`${d}T00:00:00`).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  } catch {
+    return d
+  }
 }
 
 function formatStamp(iso) {
