@@ -86,8 +86,10 @@ items:
   # Electricity & natural gas are Wisconsin-specific; motor fuels are Midwest
   # (PADD 2, EIA's petroleum region). Series IDs use EIA's v1 IDs, pulled monthly
   # via the v2 /seriesid endpoint. Validated 2026-06-09.
-  # value_factor converts EIA natural gas $/Mcf -> $/therm (1 Mcf ~= 10.37 therm).
-  - { key: electricity,    label: "Electricity",                 unit: "per kWh",    category: "Energy", geography: wisconsin, source: eia, series_id: "ELEC.PRICE.WI-RES.M" }
+  # value_factor normalizes EIA units to dollars-per-unit (the frontend shows $):
+  #   electricity: cents/kWh -> $/kWh (x0.01)
+  #   natural gas: $/Mcf -> $/therm (x0.09643, i.e. 1 Mcf ~= 10.37 therm)
+  - { key: electricity,    label: "Electricity",                 unit: "per kWh",    category: "Energy", geography: wisconsin, source: eia, series_id: "ELEC.PRICE.WI-RES.M", value_factor: 0.01 }
   - { key: utility_gas,    label: "Natural gas, residential",    unit: "per therm",  category: "Energy", geography: wisconsin, source: eia, series_id: "NG.N3010WI3.M", value_factor: 0.09643 }
   - { key: gasoline,       label: "Gasoline, unleaded regular",  unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMM_EPMR_PTE_R20_DPG.M" }
   - { key: diesel,         label: "Diesel, on-highway",          unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMD_EPD2DXL0_PTE_R20_DPG.M" }
