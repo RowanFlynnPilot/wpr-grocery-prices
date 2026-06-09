@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import BiggestMovers from './components/BiggestMovers.jsx'
 import CategorySection from './components/CategorySection.jsx'
+import PriceModal from './components/PriceModal.jsx'
 
 // prices.json is served at the build root (vite publicDir = repo data/), so it
 // is fetched relative to the page — works on a GitHub Pages subpath and inside
@@ -11,6 +12,7 @@ const DATA_URL = `${import.meta.env.BASE_URL}prices.json`
 export default function App() {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [selected, setSelected] = useState(null) // { item, anchorY }
 
   useEffect(() => {
     fetch(DATA_URL, { cache: 'no-cache' })
@@ -39,6 +41,7 @@ export default function App() {
   }
 
   const { meta, categories, items } = data
+  const openItem = (item, anchorY) => setSelected({ item, anchorY })
 
   return (
     <div className="page">
@@ -51,13 +54,14 @@ export default function App() {
         <p className="masthead__note">{meta.note}</p>
       </header>
 
-      <BiggestMovers items={items} />
+      <BiggestMovers items={items} onOpen={openItem} />
 
       {categories.map((name) => (
         <CategorySection
           key={name}
           name={name}
           items={items.filter((it) => it.category === name)}
+          onOpen={openItem}
         />
       ))}
 
@@ -85,6 +89,14 @@ export default function App() {
           Updated {formatStamp(meta.generated_utc)} · ~2-month reporting lag
         </p>
       </footer>
+
+      {selected && (
+        <PriceModal
+          item={selected.item}
+          anchorY={selected.anchorY}
+          onClose={() => setSelected(null)}
+        />
+      )}
     </div>
   )
 }
