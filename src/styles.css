@@ -543,44 +543,134 @@ a {
 }
 .basket__items {
   list-style: none;
-  margin: 0.8rem 0 0;
+  margin: 0.85rem 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.4rem 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: 0.6rem;
 }
-.basket__item {
+.basket__items > li {
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  padding: 0.2rem 0;
-  border-bottom: 1px dotted var(--rule);
 }
-.basket__qty {
-  font-family: var(--f-mono);
-  font-size: 0.76rem;
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-.basket__name {
+/* clickable item tile */
+.bitem {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  text-align: left;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--rule-strong);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease,
+    background 0.12s ease;
+}
+.bitem--midwest {
+  border-left-color: var(--teal);
+}
+.bitem--us {
+  border-left-color: var(--ink-soft);
+}
+.bitem:hover,
+.bitem:focus-visible {
+  transform: translateY(-2px);
+  background: var(--card);
+  border-color: var(--rule-strong);
+  box-shadow: 0 5px 14px rgba(33, 29, 24, 0.1);
+  outline: none;
+}
+.bitem--midwest:hover,
+.bitem--midwest:focus-visible {
+  border-left-color: var(--teal);
+}
+.bitem__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.bitem__name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.2;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.basket__geo {
-  font-size: 0.64rem;
+.bitem__geo {
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
 }
-.basket__geo--midwest {
+.bitem__geo--midwest {
   color: var(--teal);
+  background: rgba(58, 134, 124, 0.12);
 }
-.basket__geo--us {
+.bitem__geo--us {
   color: var(--ink-soft);
+  background: rgba(106, 97, 87, 0.12);
+}
+.bitem__bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.2em;
+}
+.bitem__qty {
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+/* price revealed on hover / focus */
+.bitem__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.bitem:hover .bitem__price,
+.bitem:focus-visible .bitem__price {
+  opacity: 1;
+  transform: translateX(0);
+}
+.bitem__unitprice {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+.bitem__line {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.bitem__line--up {
+  color: var(--up);
+}
+.bitem__line--down {
+  color: var(--down);
+}
+.bitem__line--flat {
+  color: var(--ink);
+}
+@media (hover: none) {
+  /* touch: no hover, so always show the price */
+  .bitem__price {
+    opacity: 1;
+    transform: none;
+  }
 }
 .basket__note {
   margin: 0.7rem 0 0;

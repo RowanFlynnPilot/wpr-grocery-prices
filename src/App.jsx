@@ -98,7 +98,8 @@ export default function App() {
     setAnchorY(y)
     setSelectedKey(key)
   }
-  const selectedItem = displayItems.find((it) => it.key === selectedKey) || null
+  const itemsByKey = Object.fromEntries(displayItems.map((it) => [it.key, it]))
+  const selectedItem = itemsByKey[selectedKey] || null
 
   return (
     <div className="page">
@@ -111,7 +112,13 @@ export default function App() {
         <SummaryLine text={data.summary} />
       </header>
 
-      <MarketBasket basket={displayBasket} earnings={earnings} real={real} />
+      <MarketBasket
+        basket={displayBasket}
+        earnings={earnings}
+        real={real}
+        itemsByKey={itemsByKey}
+        onOpen={openItem}
+      />
 
       <Controls
         real={real}
