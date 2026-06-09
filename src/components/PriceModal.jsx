@@ -113,7 +113,9 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
 
         {work && (
           <p className="modal__work">
-            At average U.S. hourly earnings, that’s about <strong>{work}</strong> of work.
+            At {earnings?.geography_label ? `${earnings.geography_label}’s` : 'the'} average
+            wage ({formatPrice(earnings?.latest?.value)}/hr), that’s about{' '}
+            <strong>{work}</strong> of work.
           </p>
         )}
 

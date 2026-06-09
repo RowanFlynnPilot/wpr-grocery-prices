@@ -6,6 +6,7 @@ import MarketBasket from './components/MarketBasket.jsx'
 import SummaryLine from './components/SummaryLine.jsx'
 import Controls from './components/Controls.jsx'
 import { cpiIndex, toReal, toRealBasket } from './deflate.js'
+import { formatPrice } from './format.js'
 
 // prices.json is served at the build root (vite publicDir = repo data/), so it
 // is fetched relative to the page — works on a GitHub Pages subpath and inside
@@ -178,6 +179,13 @@ export default function App() {
           </span>{' '}
           for motor fuels.
         </p>
+        {earnings?.latest && (
+          <p className="colophon__meta">
+            “Minutes of work” use {earnings.geography_label || 'the'} average
+            private-sector wage: {formatPrice(earnings.latest.value)}/hr (
+            {earnings.latest.period_name}).
+          </p>
+        )}
         <p className="colophon__meta">
           Updated {formatStamp(meta.generated_utc)} · ~2-month reporting lag
         </p>

@@ -25,8 +25,9 @@ context:
     us:      { series_id: CUUR0000SA0, label: "CPI-U, U.S. city average, all items (NSA)" }
     midwest: { series_id: CUUR0200SA0, label: "CPI-U, Midwest region, all items (NSA)" }
   earnings:
-    series_id: CEU0500000003
-    label: "Average hourly earnings, U.S. private sector (NSA)"
+    series_id: SMU55000000500000003   # BLS SAE: Wisconsin, total private, AHE all employees (NSA)
+    label: "Wisconsin average hourly earnings, private sector"
+    geography_label: "Wisconsin"
     unit: "per hour"
 
 # Market basket — a representative weekly staples cart, summed to a dollar total

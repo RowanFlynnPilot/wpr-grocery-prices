@@ -33,7 +33,10 @@ export default function MarketBasket({ basket, earnings, real, itemsByKey, onOpe
           </div>
           {work && (
             <p className="basket__work">
-              ≈ {work} of work at average U.S. hourly earnings
+              ≈ {work} of work at{' '}
+              {earnings?.geography_label ? `${earnings.geography_label}’s ` : 'the '}
+              average wage of{' '}
+              <strong>{formatPrice(earnings?.latest?.value)}/hr</strong>
             </p>
           )}
         </div>

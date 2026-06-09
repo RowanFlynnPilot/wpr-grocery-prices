@@ -52,7 +52,14 @@ export default function ItemCard({ item, onOpen, earnings }) {
       <footer className="card__foot">
         <span>{item.latest?.period_name}</span>
         {work ? (
-          <span className="card__work" title="At average U.S. hourly earnings">
+          <span
+            className="card__work"
+            title={
+              earnings
+                ? `At ${earnings.geography_label || 'average'} hourly earnings, ${formatPrice(earnings.latest?.value)}/hr`
+                : ''
+            }
+          >
             ≈ {work} of work
           </span>
         ) : (

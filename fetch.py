@@ -264,7 +264,8 @@ def build_context(raw_by_series, context):
         },
         "earnings": build_series(
             raw_by_series[earn["series_id"]], earn["series_id"], earn["label"],
-            extra={"unit": earn.get("unit", "per hour")},
+            extra={"unit": earn.get("unit", "per hour"),
+                   "geography_label": earn.get("geography_label", "")},
         ),
     }
 
