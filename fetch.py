@@ -22,13 +22,20 @@ from pathlib import Path
 import yaml
 
 API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+EIA_URL = "https://api.eia.gov/v2/seriesid/"
 BASKET_PATH = Path(__file__).parent / "basket.yaml"
 OUT_PATH = Path(__file__).parent / "data" / "prices.json"
 
 MIDWEST_STATES = ("Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, "
                   "Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin")
 REQUIRED_FIELDS = ("key", "label", "unit", "category", "geography", "series_id")
-GEO_LABEL = {"midwest": "Midwest region", "us": "U.S. city average"}
+GEO_LABEL = {
+    "midwest": "Midwest region",
+    "us": "U.S. city average",
+    "wisconsin": "Wisconsin",
+    "padd2": "Midwest (PADD 2)",
+}
+SOURCES = ("bls", "eia")
 
 
 def load_basket(path):
@@ -44,6 +51,8 @@ def load_basket(path):
             raise ValueError(f"basket row {row!r} missing fields: {missing}")
         if row["geography"] not in GEO_LABEL:
             raise ValueError(f"{row['key']}: bad geography {row['geography']!r}")
+        if row.get("source", "bls") not in SOURCES:
+            raise ValueError(f"{row['key']}: bad source {row['source']!r} (expected one of {SOURCES})")
         if row["key"] in seen_keys:
             raise ValueError(f"duplicate basket key: {row['key']}")
         if row["series_id"] in seen_series:
@@ -120,6 +129,61 @@ def to_records(raw):
     return records
 
 
+def eia_request(series_id, start_year, api_key):
+    """Fetch one EIA series (monthly) via the v2 /seriesid endpoint. Raise loudly.
+
+    EIA requires a key on every call (no unauthenticated tier). One series per
+    request — fine for our handful of energy items.
+    """
+    start = f"{start_year}-01"
+    url = (f"{EIA_URL}{series_id}?api_key={api_key}"
+           f"&frequency=monthly&data[0]=value"
+           f"&start={start}"
+           f"&sort[0][column]=period&sort[0][direction]=asc&length=5000")
+    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            payload = json.load(resp)
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode(errors="replace")[:300]
+        raise RuntimeError(f"EIA API error for {series_id}: HTTP {exc.code} {detail}") from exc
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"EIA API transport error for {series_id}: {exc}") from exc
+
+    if "error" in payload:
+        raise RuntimeError(f"EIA API rejected {series_id}: {payload['error']}")
+    try:
+        return payload["response"]["data"]
+    except (KeyError, TypeError) as exc:
+        raise RuntimeError(f"EIA API unexpected shape for {series_id}: {payload}") from exc
+
+
+def eia_to_records(raw, value_factor=1.0):
+    """EIA monthly observations as records, oldest first. Mirrors to_records().
+
+    EIA gives period 'YYYY-MM' directly and a numeric value (or null). value_factor
+    applies a documented unit conversion (e.g. natural gas $/Mcf -> $/therm).
+    """
+    records = []
+    for d in raw:
+        period = d.get("period", "")
+        value = d.get("value")
+        if value in (None, ""):
+            continue
+        parts = period.split("-")
+        if len(parts) != 2:  # monthly only; skip anything else
+            continue
+        year, month = int(parts[0]), int(parts[1])
+        records.append({
+            "pkey": year * 12 + (month - 1),
+            "period": f"{year}-{month:02d}",
+            "period_name": datetime(year, month, 1).strftime("%B %Y"),
+            "value": round(float(value) * value_factor, 3),
+        })
+    records.sort(key=lambda r: r["pkey"])
+    return records
+
+
 def pct_change(now, then):
     if then in (None, 0):
         return None
@@ -145,6 +209,7 @@ def build_item(row, records):
         "category": row["category"],
         "geography": row["geography"],
         "geography_label": GEO_LABEL[row["geography"]],
+        "source": row.get("source", "bls"),
         "series_id": row["series_id"],
         "latest": {"period": latest["period"], "period_name": latest["period_name"],
                    "value": latest["value"]},
@@ -268,17 +333,29 @@ def main():
     end_year = datetime.now(timezone.utc).year
     start_year = end_year - history_years
 
-    series_ids = [row["series_id"] for row in items] + context_series_ids(context)
+    # BLS items + the CPI/earnings context all come from the BLS batch API.
+    bls_series = ([row["series_id"] for row in items if row.get("source", "bls") == "bls"]
+                  + context_series_ids(context))
     raw_by_series = {}
-    for batch in chunked(series_ids, batch_size):
+    for batch in chunked(bls_series, batch_size):
         raw_by_series.update(bls_request(batch, start_year, end_year, api_key))
+
+    # EIA items (energy) come from the EIA API — one series per call, key required.
+    eia_rows = [row for row in items if row.get("source") == "eia"]
+    eia_key = os.environ.get("EIA_API_KEY", "").strip()
+    if eia_rows and not eia_key:
+        raise RuntimeError("basket has EIA items but EIA_API_KEY is not set")
 
     out_items, records_by_key = [], {}
     for row in items:
-        raw = raw_by_series.get(row["series_id"])
-        if raw is None:
-            raise RuntimeError(f"{row['key']}: series {row['series_id']} absent from BLS response")
-        records = to_records(raw)
+        if row.get("source") == "eia":
+            raw = eia_request(row["series_id"], start_year, eia_key)
+            records = eia_to_records(raw, float(row.get("value_factor", 1.0)))
+        else:
+            raw = raw_by_series.get(row["series_id"])
+            if raw is None:
+                raise RuntimeError(f"{row['key']}: series {row['series_id']} absent from BLS response")
+            records = to_records(raw)
         records_by_key[row["key"]] = records
         out_items.append(build_item(row, records))
 
@@ -290,13 +367,17 @@ def main():
     latest = max(out_items, key=lambda it: it["latest"]["period"])["latest"]
     document = {
         "meta": {
-            "source": "U.S. Bureau of Labor Statistics — Average Price Data (AP)",
+            "source": "U.S. Bureau of Labor Statistics (food, CPI, earnings) & "
+                      "U.S. Energy Information Administration (energy)",
             "source_url": "https://www.bls.gov/cpi/data.htm",
+            "source_url_energy": "https://www.eia.gov/opendata/",
             "midwest_region": MIDWEST_STATES,
             "latest_period": latest["period_name"],
             "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "note": ("Average retail prices. Items labeled 'U.S. city average' lack a current "
-                     "Midwest regional breakout. Data lags roughly two months."),
+            "note": ("Average retail prices. Food from BLS Average Price Data; energy from EIA "
+                     "(Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items "
+                     "labeled 'U.S. city average' lack a current regional breakout. "
+                     "Data lags roughly two months."),
             "used_api_key": bool(api_key),
         },
         "summary": summary,

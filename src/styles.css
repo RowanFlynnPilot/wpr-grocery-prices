@@ -427,6 +427,22 @@ a {
 .geo--us .geo__dot {
   background: var(--ink-soft);
 }
+/* Wisconsin = the most local tier; give it a stronger teal fill */
+.geo--wisconsin {
+  background: rgba(58, 134, 124, 0.18);
+  color: var(--teal);
+}
+.geo--wisconsin .geo__dot {
+  background: var(--teal);
+}
+/* PADD 2 = EIA's Midwest petroleum region (regional, like midwest) */
+.geo--padd2 {
+  background: rgba(74, 171, 167, 0.14);
+  color: var(--teal);
+}
+.geo--padd2 .geo__dot {
+  background: var(--teal-light);
+}
 
 /* ---- colophon --------------------------------------------------------- */
 .colophon {

@@ -3,7 +3,7 @@
 *ADR = Architecture Decision Record: a short, dated record of one significant
 technical choice and the reasoning behind it.*
 
-- **Status:** Proposed (awaiting decision)
+- **Status:** Accepted (2026-06-09) — implemented per §7 phase 1
 - **Date:** 2026-06-09
 - **Deciders:** WPR maintainer
 - **Affects:** `fetch.py`, `basket.yaml`, the output contract, the Energy section
@@ -232,6 +232,20 @@ interleaving providers for no reader-visible reason.
    Midwest and only move fuel to EIA (Option D)?
 2. Is weekly fuel (phase 2) a priority, or is monthly-but-Wisconsin enough?
 3. Comfortable adding and rotating one more free API key (`EIA_API_KEY`)?
+
+## Decision log
+
+**2026-06-09 — Accepted, Option C phase 1.** Maintainer confirmed: monthly
+cadence is fine (no weekly phase 2 for now), Midwest/PADD-2 fuel is acceptable
+(matches the regional approach used elsewhere), and `EIA_API_KEY` is already
+registered and added as a repo secret. Implemented:
+- `source: bls | eia` per item; EIA path via the `/v2/seriesid` endpoint.
+- Energy → EIA monthly: electricity + natural gas (`wisconsin`), gasoline +
+  diesel (`padd2`). Natural gas converted $/Mcf → $/therm (`value_factor` ÷10.37).
+- New geography labels "Wisconsin" and "Midwest (PADD 2)"; colophon + CLAUDE.md
+  updated. `EIA_API_KEY` wired into `update.yml`.
+- Validated against the live EIA API via a `workflow_dispatch` run of "Update
+  prices" (key is server-side; never handled locally).
 
 ## Appendix — validated endpoints
 

@@ -82,8 +82,12 @@ items:
   - { key: beer,           label: "Malt beverages",              unit: "per 16 oz",  category: "Beverages",   geography: midwest, series_id: APU0200720111 }
   - { key: wine,           label: "Wine, table",                 unit: "per liter",  category: "Beverages",   geography: midwest, series_id: APU0200720311 }
 
-  # --- Energy ---
-  - { key: electricity,    label: "Electricity",                 unit: "per KWH",    category: "Energy",      geography: midwest, series_id: APU020072610 }
-  - { key: utility_gas,    label: "Utility (piped) gas",         unit: "per therm",  category: "Energy",      geography: midwest, series_id: APU020072620 }
-  - { key: gasoline,       label: "Gasoline, unleaded regular",  unit: "per gallon", category: "Energy",      geography: midwest, series_id: APU020074714 }
-  - { key: diesel,         label: "Diesel fuel",                 unit: "per gallon", category: "Energy",      geography: midwest, series_id: APU020074717 }
+  # --- Energy (EIA, not BLS — see docs/decisions/0001-eia-energy-data.md) ---
+  # Electricity & natural gas are Wisconsin-specific; motor fuels are Midwest
+  # (PADD 2, EIA's petroleum region). Series IDs use EIA's v1 IDs, pulled monthly
+  # via the v2 /seriesid endpoint. Validated 2026-06-09.
+  # value_factor converts EIA natural gas $/Mcf -> $/therm (1 Mcf ~= 10.37 therm).
+  - { key: electricity,    label: "Electricity",                 unit: "per kWh",    category: "Energy", geography: wisconsin, source: eia, series_id: "ELEC.PRICE.WI-RES.M" }
+  - { key: utility_gas,    label: "Natural gas, residential",    unit: "per therm",  category: "Energy", geography: wisconsin, source: eia, series_id: "NG.N3010WI3.M", value_factor: 0.09643 }
+  - { key: gasoline,       label: "Gasoline, unleaded regular",  unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMM_EPMR_PTE_R20_DPG.M" }
+  - { key: diesel,         label: "Diesel, on-highway",          unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMD_EPD2DXL0_PTE_R20_DPG.M" }

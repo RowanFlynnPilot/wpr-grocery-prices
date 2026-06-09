@@ -141,11 +141,19 @@ export default function App() {
 
       <footer className="colophon">
         <p>
-          Source:{' '}
+          Sources:{' '}
           <a href={meta.source_url} target="_blank" rel="noopener noreferrer">
-            {meta.source}
+            U.S. Bureau of Labor Statistics
           </a>{' '}
-          — Average Price, CPI, and hourly-earnings series.
+          (food prices, CPI, hourly earnings) and{' '}
+          <a
+            href={meta.source_url_energy || 'https://www.eia.gov/opendata/'}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            U.S. Energy Information Administration
+          </a>{' '}
+          (energy).
         </p>
         <p className="colophon__geo">
           <span className="geo geo--midwest">
@@ -153,12 +161,22 @@ export default function App() {
             Midwest region
           </span>
           {' = '}
-          {meta.midwest_region}. Items marked{' '}
+          {meta.midwest_region}. Food items marked{' '}
           <span className="geo geo--us">
             <span className="geo__dot" aria-hidden="true" />
             U.S. city average
           </span>{' '}
-          lack a current Midwest breakout.
+          lack a current regional breakout. Energy is local where available:{' '}
+          <span className="geo geo--wisconsin">
+            <span className="geo__dot" aria-hidden="true" />
+            Wisconsin
+          </span>{' '}
+          for electricity &amp; natural gas,{' '}
+          <span className="geo geo--padd2">
+            <span className="geo__dot" aria-hidden="true" />
+            Midwest (PADD 2)
+          </span>{' '}
+          for motor fuels.
         </p>
         <p className="colophon__meta">
           Updated {formatStamp(meta.generated_utc)} · ~2-month reporting lag
