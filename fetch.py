@@ -66,7 +66,11 @@ def load_basket(path):
     for entry in market_basket["items"]:
         if entry["key"] not in item_keys:
             raise ValueError(f"market_basket references unknown item key: {entry['key']!r}")
-    return items, history_years, context, market_basket
+
+    weekly_fuel = doc.get("weekly_fuel")  # optional near-real-time widget
+    if weekly_fuel and weekly_fuel["geography"] not in GEO_LABEL:
+        raise ValueError(f"weekly_fuel: bad geography {weekly_fuel['geography']!r}")
+    return items, history_years, context, market_basket, weekly_fuel
 
 
 def context_series_ids(context):
@@ -129,16 +133,17 @@ def to_records(raw):
     return records
 
 
-def eia_request(series_id, start_year, api_key):
-    """Fetch one EIA series (monthly) via the v2 /seriesid endpoint. Raise loudly.
+def eia_request(series_id, start, api_key):
+    """Fetch one EIA series via the v2 /seriesid endpoint. Raise loudly.
 
-    EIA requires a key on every call (no unauthenticated tier). One series per
-    request — fine for our handful of energy items.
+    `start` is an EIA period string ("YYYY-MM" for monthly, "YYYY-MM-DD" for
+    weekly). EIA requires a key on every call (no unauthenticated tier). One
+    series per request — fine for our handful of energy items.
     """
     # The /seriesid endpoint returns the series with its value column already
     # included — keep params minimal (extra data[]/frequency facets can suppress
-    # the value column). We bound history client-side in eia_to_records.
-    url = f"{EIA_URL}{series_id}?api_key={api_key}&start={start_year}-01&length=5000"
+    # the value column). We bound history client-side in the parsers.
+    url = f"{EIA_URL}{series_id}?api_key={api_key}&start={start}&length=5000"
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:
@@ -157,32 +162,36 @@ def eia_request(series_id, start_year, api_key):
         raise RuntimeError(f"EIA API unexpected shape for {series_id}: {payload}") from exc
 
 
+def _eia_value(d):
+    """Pull the observation value from an EIA row, tolerant of the column name."""
+    value = d.get("value")
+    if value not in (None, ""):
+        return value
+    # Insurance: if the value column isn't named "value", take the first other
+    # float-coercible field (seriesid rows carry little else).
+    for k, v in d.items():
+        if k in ("period", "value") or v in (None, ""):
+            continue
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            continue
+    return None
+
+
 def eia_to_records(raw, value_factor=1.0, start_year=None):
     """EIA monthly observations as records, oldest first. Mirrors to_records().
 
-    EIA gives period 'YYYY-MM' directly and a numeric value (or null) under the
-    'value' key. value_factor applies a documented unit conversion (e.g. natural
-    gas $/Mcf -> $/therm). start_year bounds history client-side in case the API
-    ignores the start param.
+    EIA gives period 'YYYY-MM' directly and a numeric value (or null).
+    value_factor applies a documented unit conversion (e.g. natural gas $/Mcf ->
+    $/therm). start_year bounds history client-side if the API ignores `start`.
     """
     records = []
     for d in raw:
-        period = d.get("period", "")
-        value = d.get("value")
-        if value in (None, ""):
-            # Insurance: if the value column isn't named "value", take the first
-            # other float-coercible field (seriesid rows carry little else).
-            for k, v in d.items():
-                if k in ("period", "value") or v in (None, ""):
-                    continue
-                try:
-                    value = float(v)
-                    break
-                except (TypeError, ValueError):
-                    continue
+        value = _eia_value(d)
         if value in (None, ""):
             continue
-        parts = period.split("-")
+        parts = d.get("period", "").split("-")
         if len(parts) != 2:  # monthly only; skip anything else
             continue
         year, month = int(parts[0]), int(parts[1])
@@ -196,6 +205,75 @@ def eia_to_records(raw, value_factor=1.0, start_year=None):
         })
     records.sort(key=lambda r: r["pkey"])
     return records
+
+
+def eia_weekly_records(raw):
+    """EIA weekly observations as records, oldest first.
+
+    Weekly periods are full dates 'YYYY-MM-DD'. Each record carries the date and
+    its ordinal (day count) for week/year arithmetic.
+    """
+    records = []
+    for d in raw:
+        value = _eia_value(d)
+        if value in (None, ""):
+            continue
+        period = d.get("period", "")
+        try:
+            dt = datetime.strptime(period, "%Y-%m-%d")
+        except ValueError:
+            continue  # not a weekly date row
+        records.append({
+            "date": period,
+            "ordinal": dt.toordinal(),
+            "value": round(float(value), 3),
+        })
+    records.sort(key=lambda r: r["ordinal"])
+    return records
+
+
+def build_weekly_fuel(weekly_cfg, api_key, end_year):
+    """The near-real-time weekly fuel widget data (EIA weekly retail prices)."""
+    history_weeks = int(weekly_cfg.get("history_weeks", 78))
+    geo = weekly_cfg["geography"]
+    start = f"{end_year - 2}-01-01"  # ~2 years; trimmed to history_weeks below
+
+    out = []
+    for entry in weekly_cfg["items"]:
+        records = eia_weekly_records(eia_request(entry["series_id"], start, api_key))
+        if not records:
+            raise RuntimeError(f"weekly_fuel {entry['key']} ({entry['series_id']}): "
+                               f"EIA returned no usable data — re-validate the series")
+        latest = records[-1]
+        prior = records[-2] if len(records) > 1 else None
+        # Year-ago = the observation closest to 364 days before latest.
+        target = latest["ordinal"] - 364
+        year_ago = min(records, key=lambda r: abs(r["ordinal"] - target))
+        if abs(year_ago["ordinal"] - target) > 21:  # no point within 3 weeks
+            year_ago = None
+
+        out.append({
+            "key": entry["key"],
+            "label": entry["label"],
+            "unit": entry["unit"],
+            "geography": geo,
+            "geography_label": GEO_LABEL[geo],
+            "source": "eia",
+            "series_id": entry["series_id"],
+            "latest": {"date": latest["date"], "value": latest["value"]},
+            "prior_week_value": prior["value"] if prior else None,
+            "year_ago_value": year_ago["value"] if year_ago else None,
+            "change_wow_pct": pct_change(latest["value"], prior["value"] if prior else None),
+            "change_yoy_pct": pct_change(latest["value"], year_ago["value"] if year_ago else None),
+            "history": [{"date": r["date"], "value": r["value"]} for r in records[-history_weeks:]],
+        })
+
+    return {
+        "label": weekly_cfg.get("label", "Pump prices this week"),
+        "geography_label": GEO_LABEL[geo],
+        "latest_date": out[0]["latest"]["date"] if out else None,
+        "items": out,
+    }
 
 
 def pct_change(now, then):
@@ -341,7 +419,7 @@ def build_summary(market_basket, out_items):
 
 
 def main():
-    items, history_years, context, market_basket = load_basket(BASKET_PATH)
+    items, history_years, context, market_basket, weekly_fuel = load_basket(BASKET_PATH)
     api_key = os.environ.get("BLS_API_KEY", "").strip()
     batch_size = 50 if api_key else 25  # BLS per-query series cap
 
@@ -364,7 +442,7 @@ def main():
     out_items, records_by_key = [], {}
     for row in items:
         if row.get("source") == "eia":
-            raw = eia_request(row["series_id"], start_year, eia_key)
+            raw = eia_request(row["series_id"], f"{start_year}-01", eia_key)
             records = eia_to_records(raw, float(row.get("value_factor", 1.0)), start_year)
         else:
             raw = raw_by_series.get(row["series_id"])
@@ -378,6 +456,7 @@ def main():
     ctx = build_context(raw_by_series, context)
     mb = build_market_basket(records_by_key, market_basket, items_by_key)
     summary = build_summary(mb, out_items)
+    weekly = build_weekly_fuel(weekly_fuel, eia_key, end_year) if weekly_fuel else None
 
     latest = max(out_items, key=lambda it: it["latest"]["period"])["latest"]
     document = {
@@ -400,6 +479,7 @@ def main():
         "items": out_items,
         "market_basket": mb,
         "context": ctx,
+        "weekly_fuel": weekly,
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

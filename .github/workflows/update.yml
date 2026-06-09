@@ -1,10 +1,13 @@
 name: Update prices
 
 # BLS Average Price data for month N publishes ~mid-month N+2 (with the CPI
-# release), so refresh on the 16th. Manual dispatch available any time.
+# release), so refresh on the 16th. EIA posts weekly retail fuel prices Monday
+# afternoons, so also refresh Tuesdays for the weekly pump-price widget. The
+# full pipeline runs either way; "commit if changed" no-ops weeks with no change.
 on:
   schedule:
-    - cron: "0 13 16 * *"
+    - cron: "0 13 16 * *"   # monthly — the 16th (food, CPI, wages, monthly energy)
+    - cron: "0 13 * * 2"    # weekly  — Tuesdays (EIA weekly pump prices)
   workflow_dispatch:
 
 # Run the JS action runtimes on Node 24 instead of the deprecated Node 20.

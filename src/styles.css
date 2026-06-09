@@ -694,6 +694,91 @@ a {
   color: var(--ink-soft);
 }
 
+/* ---- weekly fuel widget ----------------------------------------------- */
+.weekly {
+  background: var(--card);
+  border: 1px solid var(--rule-strong);
+  border-top: 4px solid var(--teal-light);
+  border-radius: 10px;
+  padding: 1rem 1.25rem 0.9rem;
+  margin-bottom: 1.5rem;
+}
+.weekly__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  margin-bottom: 0.85rem;
+}
+.weekly__kicker {
+  margin: 0;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.weekly__tag {
+  font-family: var(--f-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: var(--teal-light);
+  padding: 0.14rem 0.45rem;
+  border-radius: 999px;
+}
+.weekly__sub {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.weekly__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.wfuel {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.7rem 0.85rem;
+  background: var(--cream);
+}
+.wfuel__name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.wfuel__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0.3rem 0 0.5rem;
+}
+.wfuel__value {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+}
+.wfuel__unit {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.wfuel__chips {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+.weekly__note {
+  margin: 0.85rem 0 0;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
 /* ---- controls bar ----------------------------------------------------- */
 .controls {
   display: flex;

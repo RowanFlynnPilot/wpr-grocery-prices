@@ -3,7 +3,7 @@
 *ADR = Architecture Decision Record: a short, dated record of one significant
 technical choice and the reasoning behind it.*
 
-- **Status:** Accepted (2026-06-09) — implemented per §7 phase 1
+- **Status:** Accepted (2026-06-09) — phase 1 + phase 2 implemented
 - **Date:** 2026-06-09
 - **Deciders:** WPR maintainer
 - **Affects:** `fetch.py`, `basket.yaml`, the output contract, the Energy section
@@ -246,6 +246,13 @@ registered and added as a repo secret. Implemented:
   updated. `EIA_API_KEY` wired into `update.yml`.
 - Validated against the live EIA API via a `workflow_dispatch` run of "Update
   prices" (key is server-side; never handled locally).
+
+**2026-06-09 — Phase 2 implemented (weekly fuel).** Added a distinct
+`weekly_fuel` widget from EIA weekly retail series (`…_R20_DPG.W`, PADD 2) for
+gasoline and diesel — latest week + WoW/YoY + sparkline, always nominal, kept
+separate from the monthly Energy grid. Added a Tuesday cron to "Update prices"
+(EIA posts weekly prices Mondays). The monthly cards remain for trend/YoY and the
+inflation toggle.
 
 ## Appendix — validated endpoints
 

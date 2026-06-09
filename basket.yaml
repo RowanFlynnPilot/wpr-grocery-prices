@@ -94,3 +94,16 @@ items:
   - { key: utility_gas,    label: "Natural gas, residential",    unit: "per therm",  category: "Energy", geography: wisconsin, source: eia, series_id: "NG.N3010WI3.M", value_factor: 0.09643 }
   - { key: gasoline,       label: "Gasoline, unleaded regular",  unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMM_EPMR_PTE_R20_DPG.M" }
   - { key: diesel,         label: "Diesel, on-highway",          unit: "per gallon", category: "Energy", geography: padd2,     source: eia, series_id: "PET.EMD_EPD2DXL0_PTE_R20_DPG.M" }
+
+# Weekly pump prices — the near-real-time companion to the monthly Energy cards
+# above. Same EIA petroleum series at WEEKLY frequency (.W), Midwest (PADD 2).
+# Surfaced as a distinct "this week" widget so the weekly cadence never mixes
+# into the monthly grid. EIA posts these Monday afternoons; the cron refreshes
+# Tuesdays. Validated 2026-06-09.
+weekly_fuel:
+  label: "Pump prices this week"
+  geography: padd2
+  history_weeks: 78        # ~18 months of weekly points (enough for WoW + YoY)
+  items:
+    - { key: gasoline_weekly, label: "Gasoline, regular",   unit: "per gallon", series_id: "PET.EMM_EPMR_PTE_R20_DPG.W" }
+    - { key: diesel_weekly,   label: "Diesel, on-highway",  unit: "per gallon", series_id: "PET.EMD_EPD2DXL0_PTE_R20_DPG.W" }

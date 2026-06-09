@@ -3,6 +3,7 @@ import BiggestMovers from './components/BiggestMovers.jsx'
 import CategorySection from './components/CategorySection.jsx'
 import PriceModal from './components/PriceModal.jsx'
 import MarketBasket from './components/MarketBasket.jsx'
+import WeeklyFuel from './components/WeeklyFuel.jsx'
 import SummaryLine from './components/SummaryLine.jsx'
 import Controls from './components/Controls.jsx'
 import { cpiIndex, toReal, toRealBasket } from './deflate.js'
@@ -120,6 +121,8 @@ export default function App() {
         itemsByKey={itemsByKey}
         onOpen={openItem}
       />
+
+      <WeeklyFuel weekly={data.weekly_fuel} />
 
       <Controls
         real={real}

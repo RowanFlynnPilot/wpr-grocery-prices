@@ -76,7 +76,14 @@ market_basket: label, unit, components[]{key,label,qty,unit,geography},
                history[]{period,value}              # months where EVERY item reports
 context:       cpi{ us, midwest }, earnings           # auxiliary BLS series
                each: series_id, label, latest{period,period_name,value}, history[]
-               earnings also carries unit ("per hour")
+               earnings also carries unit ("per hour") + geography_label
+               (currently "Wisconsin"; drives the displayed wage)
+weekly_fuel:   label, geography_label, latest_date,    # near-real-time, EIA weekly
+               items[]{key,label,unit,geography,geography_label,source,series_id,
+                 latest{date,value}, prior_week_value, year_ago_value,
+                 change_wow_pct, change_yoy_pct, history[]{date,value}}
+               # WEEKLY cadence (dates, not months) — render as its own widget,
+               # always nominal; null when no weekly_fuel section in basket.yaml
 ```
 Cards: `latest.value` + `unit`, MoM/YoY chips, geography label, sparkline from
 `history`. A "biggest movers" panel = sort items by `abs(change_yoy_pct)`.
