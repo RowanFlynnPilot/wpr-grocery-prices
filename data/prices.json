@@ -5,7 +5,7 @@
     "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "May 2026",
-    "generated_utc": "2026-06-09T04:48:07Z",
+    "generated_utc": "2026-06-09T04:57:22Z",
     "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
@@ -5513,180 +5513,177 @@
       }
     },
     "earnings": {
-      "series_id": "CEU0500000003",
-      "label": "Average hourly earnings, U.S. private sector (NSA)",
+      "series_id": "SMU55000000500000003",
+      "label": "Wisconsin average hourly earnings, private sector",
       "latest": {
-        "period": "2026-05",
-        "period_name": "May 2026",
-        "value": 37.46
+        "period": "2026-04",
+        "period_name": "April 2026",
+        "value": 34.69
       },
       "history": [
         {
           "period": "2023-01",
-          "value": 33.4
+          "value": 30.8
         },
         {
           "period": "2023-02",
-          "value": 33.2
+          "value": 30.56
         },
         {
           "period": "2023-03",
-          "value": 33.26
+          "value": 30.67
         },
         {
           "period": "2023-04",
-          "value": 33.76
+          "value": 31.17
         },
         {
           "period": "2023-05",
-          "value": 33.45
+          "value": 31.08
         },
         {
           "period": "2023-06",
-          "value": 33.42
+          "value": 30.93
         },
         {
           "period": "2023-07",
-          "value": 33.92
+          "value": 31.36
         },
         {
           "period": "2023-08",
-          "value": 33.71
+          "value": 31.37
         },
         {
           "period": "2023-09",
-          "value": 33.94
+          "value": 32.08
         },
         {
           "period": "2023-10",
-          "value": 34.24
+          "value": 32.26
         },
         {
           "period": "2023-11",
-          "value": 34.05
+          "value": 32.28
         },
         {
           "period": "2023-12",
-          "value": 34.23
+          "value": 32.88
         },
         {
           "period": "2024-01",
-          "value": 34.64
+          "value": 33.12
         },
         {
           "period": "2024-02",
-          "value": 34.57
+          "value": 33.73
         },
         {
           "period": "2024-03",
-          "value": 34.65
+          "value": 33.43
         },
         {
           "period": "2024-04",
-          "value": 34.86
+          "value": 33.32
         },
         {
           "period": "2024-05",
-          "value": 34.81
+          "value": 33.64
         },
         {
           "period": "2024-06",
-          "value": 34.99
+          "value": 33.3
         },
         {
           "period": "2024-07",
-          "value": 34.93
+          "value": 33.22
         },
         {
           "period": "2024-08",
-          "value": 35.02
+          "value": 33.37
         },
         {
           "period": "2024-09",
-          "value": 35.46
+          "value": 33.54
         },
         {
           "period": "2024-10",
-          "value": 35.41
+          "value": 33.41
         },
         {
           "period": "2024-11",
-          "value": 35.48
+          "value": 33.55
         },
         {
           "period": "2024-12",
-          "value": 35.82
+          "value": 34.11
         },
         {
           "period": "2025-01",
-          "value": 36.0
+          "value": 34.09
         },
         {
           "period": "2025-02",
-          "value": 36.2
+          "value": 34.4
         },
         {
           "period": "2025-03",
-          "value": 36.28
+          "value": 34.19
         },
         {
           "period": "2025-04",
-          "value": 36.23
+          "value": 34.32
         },
         {
           "period": "2025-05",
-          "value": 36.2
+          "value": 34.05
         },
         {
           "period": "2025-06",
-          "value": 36.33
+          "value": 33.77
         },
         {
           "period": "2025-07",
-          "value": 36.31
+          "value": 33.87
         },
         {
           "period": "2025-08",
-          "value": 36.41
+          "value": 34.08
         },
         {
           "period": "2025-09",
-          "value": 36.62
+          "value": 34.47
         },
         {
           "period": "2025-10",
-          "value": 36.78
+          "value": 34.4
         },
         {
           "period": "2025-11",
-          "value": 37.11
+          "value": 34.74
         },
         {
           "period": "2025-12",
-          "value": 36.94
+          "value": 34.5
         },
         {
           "period": "2026-01",
-          "value": 37.32
+          "value": 34.78
         },
         {
           "period": "2026-02",
-          "value": 37.55
+          "value": 35.09
         },
         {
           "period": "2026-03",
-          "value": 37.53
+          "value": 34.98
         },
         {
           "period": "2026-04",
-          "value": 37.49
-        },
-        {
-          "period": "2026-05",
-          "value": 37.46
+          "value": 34.69
         }
       ],
-      "unit": "per hour"
+      "unit": "per hour",
+      "geography_label": "Wisconsin"
     }
   }
 }
