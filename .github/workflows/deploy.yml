@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
 # Builds the Vite frontend and publishes it to GitHub Pages. Runs on every push
-# to main — which includes the monthly "data: refresh prices" commit from the
-# Update prices workflow, so a data refresh redeploys automatically.
+# to main, plus an explicit workflow_dispatch from the "Update prices" workflow
+# after a data change (a GITHUB_TOKEN push can't trigger this via the push event,
+# so Update prices dispatches it directly).
 on:
   push:
     branches: [main]

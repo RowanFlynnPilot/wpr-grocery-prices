@@ -13,6 +13,7 @@ env:
 
 permissions:
   contents: write
+  actions: write   # to trigger the Pages deploy after a data change
 
 jobs:
   update:
@@ -33,13 +34,25 @@ jobs:
         run: python fetch.py
 
       - name: Commit if changed
+        id: commit
         run: |
           git config user.name "wpr-bot"
           git config user.email "bot@wausaupilotandreview.com"
           if git diff --quiet -- data/prices.json; then
             echo "No change in prices.json"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git add data/prices.json
             git commit -m "data: refresh prices ($(date -u +%Y-%m-%d))"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # A commit pushed with GITHUB_TOKEN does NOT trigger other workflows
+      # (GitHub's anti-recursion guard), so the Pages deploy must be dispatched
+      # explicitly. workflow_dispatch is exempt from that guard.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run "Deploy to GitHub Pages"
