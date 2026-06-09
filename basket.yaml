@@ -1,0 +1,58 @@
+# wpr-grocery-prices — editorial basket
+#
+# One row = one tracked item = one BLS Average Price (AP) series.
+# `geography` and `series_id` were validated against the live BLS API on
+# 2026-06-08. Each item declares EXACTLY ONE authoritative series. There is
+# no silent US->Midwest fallback at runtime: if a declared series stops
+# returning current data, fetch.py fails loudly so we fix the config on purpose.
+#
+# geography:
+#   midwest -> BLS area 0200 (IL IN IA KS MI MN MO NE ND OH SD WI)
+#   us      -> BLS area 0000 (U.S. city average) -- used only where the Midwest
+#              regional breakout is missing or stale. Surface this label in the UI.
+#
+# To re-validate after a BLS revision: python validate_basket.py  (see CLAUDE.md)
+
+settings:
+  history_years: 3        # months of trend pulled per item (>=2 needed for YoY)
+
+items:
+  # --- Meat & eggs ---
+  - { key: ground_beef,    label: "Ground beef, 100% beef",      unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200703112 }
+  - { key: ground_beef_all,label: "All uncooked ground beef",    unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200FC1101 }
+  - { key: chuck_roast,    label: "Chuck roast, USDA Choice",    unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200703213 }
+  - { key: steak_sirloin,  label: "Sirloin steak, USDA Choice",  unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200703613 }
+  - { key: bacon,          label: "Bacon, sliced",               unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200704111 }
+  - { key: pork_chops,     label: "Pork chops, boneless",        unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200704212 }
+  - { key: chicken_whole,  label: "Chicken, fresh, whole",       unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200706111 }
+  - { key: chicken_breast, label: "Chicken breast, boneless",    unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200FF1101 }
+  - { key: eggs,           label: "Eggs, grade A, large",        unit: "per dozen",  category: "Meat & eggs", geography: us,      series_id: APU0000708111 }
+
+  # --- Dairy ---
+  - { key: milk,           label: "Milk, whole, fortified",      unit: "per gallon", category: "Dairy",       geography: us,      series_id: APU0000709112 }
+  - { key: cheddar,        label: "Cheddar cheese, natural",     unit: "per lb",     category: "Dairy",       geography: us,      series_id: APU0000710212 }
+
+  # --- Produce ---
+  - { key: bananas,        label: "Bananas",                     unit: "per lb",     category: "Produce",     geography: midwest, series_id: APU0200711211 }
+  - { key: potatoes,       label: "Potatoes, white",             unit: "per lb",     category: "Produce",     geography: midwest, series_id: APU0200712112 }
+  - { key: tomatoes,       label: "Tomatoes, field grown",       unit: "per lb",     category: "Produce",     geography: midwest, series_id: APU0200712311 }
+  - { key: oranges,        label: "Oranges, navel",              unit: "per lb",     category: "Produce",     geography: midwest, series_id: APU0200711311 }
+  - { key: lemons,         label: "Lemons",                      unit: "per lb",     category: "Produce",     geography: midwest, series_id: APU0200711412 }
+
+  # --- Pantry ---
+  - { key: bread,          label: "Bread, white, pan",           unit: "per lb",     category: "Pantry",      geography: midwest, series_id: APU0200702111 }
+  - { key: flour,          label: "Flour, white, all purpose",   unit: "per lb",     category: "Pantry",      geography: us,      series_id: APU0000701111 }
+  - { key: rice,           label: "Rice, white, long grain",     unit: "per lb",     category: "Pantry",      geography: us,      series_id: APU0000701312 }
+  - { key: coffee,         label: "Coffee, ground roast",        unit: "per lb",     category: "Pantry",      geography: us,      series_id: APU0000717311 }
+  - { key: sugar,          label: "Sugar, white",                unit: "per lb",     category: "Pantry",      geography: us,      series_id: APU0000715211 }
+  - { key: potato_chips,   label: "Potato chips",                unit: "per 16 oz",  category: "Pantry",      geography: midwest, series_id: APU0200718311 }
+
+  # --- Beverages ---
+  - { key: beer,           label: "Malt beverages",              unit: "per 16 oz",  category: "Beverages",   geography: midwest, series_id: APU0200720111 }
+  - { key: wine,           label: "Wine, table",                 unit: "per liter",  category: "Beverages",   geography: midwest, series_id: APU0200720311 }
+
+  # --- Energy ---
+  - { key: electricity,    label: "Electricity",                 unit: "per KWH",    category: "Energy",      geography: midwest, series_id: APU020072610 }
+  - { key: utility_gas,    label: "Utility (piped) gas",         unit: "per therm",  category: "Energy",      geography: midwest, series_id: APU020072620 }
+  - { key: gasoline,       label: "Gasoline, unleaded regular",  unit: "per gallon", category: "Energy",      geography: midwest, series_id: APU020074714 }
+  - { key: diesel,         label: "Diesel fuel",                 unit: "per gallon", category: "Energy",      geography: midwest, series_id: APU020074717 }
