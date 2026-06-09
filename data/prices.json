@@ -1,14 +1,15 @@
 {
   "meta": {
-    "source": "U.S. Bureau of Labor Statistics \u2014 Average Price Data (AP)",
+    "source": "U.S. Bureau of Labor Statistics (food, CPI, earnings) & U.S. Energy Information Administration (energy)",
     "source_url": "https://www.bls.gov/cpi/data.htm",
+    "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
-    "latest_period": "April 2026",
-    "generated_utc": "2026-06-09T04:03:25Z",
-    "note": "Average retail prices. Items labeled 'U.S. city average' lack a current Midwest regional breakout. Data lags roughly two months.",
-    "used_api_key": false
+    "latest_period": "May 2026",
+    "generated_utc": "2026-06-09T04:46:16Z",
+    "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
+    "used_api_key": true
   },
-  "summary": "The weekly staples cart costs $55.59 in April 2026, little changed from a year ago. Diesel fuel rose the most over the year (+46.8%); Eggs, grade A, large fell the most (-56.1%).",
+  "summary": "The weekly staples cart costs $55.59 in April 2026, little changed from a year ago. Diesel, on-highway rose the most over the year (+66.7%); Eggs, grade A, large fell the most (-56.1%).",
   "categories": [
     "Meat & eggs",
     "Dairy",
@@ -25,6 +26,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200703112",
       "latest": {
         "period": "2026-04",
@@ -201,6 +203,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200FC1101",
       "latest": {
         "period": "2026-04",
@@ -377,6 +380,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200703213",
       "latest": {
         "period": "2026-04",
@@ -553,6 +557,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200703613",
       "latest": {
         "period": "2026-04",
@@ -729,6 +734,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200704111",
       "latest": {
         "period": "2026-04",
@@ -905,6 +911,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200704212",
       "latest": {
         "period": "2026-04",
@@ -1081,6 +1088,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200706111",
       "latest": {
         "period": "2026-04",
@@ -1257,6 +1265,7 @@
       "category": "Meat & eggs",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200FF1101",
       "latest": {
         "period": "2026-04",
@@ -1433,6 +1442,7 @@
       "category": "Meat & eggs",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000708111",
       "latest": {
         "period": "2026-04",
@@ -1609,6 +1619,7 @@
       "category": "Dairy",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000709112",
       "latest": {
         "period": "2026-04",
@@ -1785,6 +1796,7 @@
       "category": "Dairy",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000710212",
       "latest": {
         "period": "2026-04",
@@ -1961,6 +1973,7 @@
       "category": "Produce",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200711211",
       "latest": {
         "period": "2026-04",
@@ -2137,6 +2150,7 @@
       "category": "Produce",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200712112",
       "latest": {
         "period": "2026-04",
@@ -2313,6 +2327,7 @@
       "category": "Produce",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200712311",
       "latest": {
         "period": "2026-04",
@@ -2489,6 +2504,7 @@
       "category": "Produce",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200711311",
       "latest": {
         "period": "2026-04",
@@ -2645,6 +2661,7 @@
       "category": "Produce",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200711412",
       "latest": {
         "period": "2026-04",
@@ -2781,6 +2798,7 @@
       "category": "Pantry",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200702111",
       "latest": {
         "period": "2026-04",
@@ -2957,6 +2975,7 @@
       "category": "Pantry",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000701111",
       "latest": {
         "period": "2026-04",
@@ -3133,6 +3152,7 @@
       "category": "Pantry",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000701312",
       "latest": {
         "period": "2026-04",
@@ -3309,6 +3329,7 @@
       "category": "Pantry",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000717311",
       "latest": {
         "period": "2026-04",
@@ -3485,6 +3506,7 @@
       "category": "Pantry",
       "geography": "us",
       "geography_label": "U.S. city average",
+      "source": "bls",
       "series_id": "APU0000715211",
       "latest": {
         "period": "2026-04",
@@ -3661,6 +3683,7 @@
       "category": "Pantry",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200718311",
       "latest": {
         "period": "2026-04",
@@ -3837,6 +3860,7 @@
       "category": "Beverages",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200720111",
       "latest": {
         "period": "2026-04",
@@ -4013,6 +4037,7 @@
       "category": "Beverages",
       "geography": "midwest",
       "geography_label": "Midwest region",
+      "source": "bls",
       "series_id": "APU0200720311",
       "latest": {
         "period": "2026-04",
@@ -4185,352 +4210,354 @@
     {
       "key": "electricity",
       "label": "Electricity",
-      "unit": "per KWH",
+      "unit": "per kWh",
       "category": "Energy",
-      "geography": "midwest",
-      "geography_label": "Midwest region",
-      "series_id": "APU020072610",
+      "geography": "wisconsin",
+      "geography_label": "Wisconsin",
+      "source": "eia",
+      "series_id": "ELEC.PRICE.WI-RES.M",
       "latest": {
-        "period": "2026-04",
-        "period_name": "April 2026",
-        "value": 0.181
+        "period": "2026-03",
+        "period_name": "March 2026",
+        "value": 18.8
       },
-      "prior_month_value": 0.177,
-      "year_ago_value": 0.162,
-      "change_mom_pct": 2.3,
-      "change_yoy_pct": 11.7,
+      "prior_month_value": 18.74,
+      "year_ago_value": 17.75,
+      "change_mom_pct": 0.3,
+      "change_yoy_pct": 5.9,
       "history": [
         {
           "period": "2023-01",
-          "value": 0.148
+          "value": 16.17
         },
         {
           "period": "2023-02",
-          "value": 0.148
+          "value": 16.33
         },
         {
           "period": "2023-03",
-          "value": 0.151
+          "value": 16.47
         },
         {
           "period": "2023-04",
-          "value": 0.149
+          "value": 16.98
         },
         {
           "period": "2023-05",
-          "value": 0.151
+          "value": 17.43
         },
         {
           "period": "2023-06",
-          "value": 0.161
+          "value": 17.14
         },
         {
           "period": "2023-07",
-          "value": 0.159
+          "value": 17.02
         },
         {
           "period": "2023-08",
-          "value": 0.159
+          "value": 17.19
         },
         {
           "period": "2023-09",
-          "value": 0.159
+          "value": 17.41
         },
         {
           "period": "2023-10",
-          "value": 0.152
+          "value": 17.14
         },
         {
           "period": "2023-11",
-          "value": 0.151
+          "value": 16.85
         },
         {
           "period": "2023-12",
-          "value": 0.152
+          "value": 16.58
         },
         {
           "period": "2024-01",
-          "value": 0.156
+          "value": 16.51
         },
         {
           "period": "2024-02",
-          "value": 0.156
+          "value": 16.98
         },
         {
           "period": "2024-03",
-          "value": 0.156
+          "value": 17.01
         },
         {
           "period": "2024-04",
-          "value": 0.156
+          "value": 17.35
         },
         {
           "period": "2024-05",
-          "value": 0.159
+          "value": 17.86
         },
         {
           "period": "2024-06",
-          "value": 0.162
+          "value": 17.62
         },
         {
           "period": "2024-07",
-          "value": 0.163
+          "value": 17.46
         },
         {
           "period": "2024-08",
-          "value": 0.167
+          "value": 17.57
         },
         {
           "period": "2024-09",
-          "value": 0.166
+          "value": 17.73
         },
         {
           "period": "2024-10",
-          "value": 0.159
+          "value": 17.16
         },
         {
           "period": "2024-11",
-          "value": 0.155
+          "value": 16.93
         },
         {
           "period": "2024-12",
-          "value": 0.156
+          "value": 16.26
         },
         {
           "period": "2025-01",
-          "value": 0.162
+          "value": 17.36
         },
         {
           "period": "2025-02",
-          "value": 0.162
+          "value": 17.41
         },
         {
           "period": "2025-03",
-          "value": 0.165
+          "value": 17.75
         },
         {
           "period": "2025-04",
-          "value": 0.162
+          "value": 18.21
         },
         {
           "period": "2025-05",
-          "value": 0.167
+          "value": 18.94
         },
         {
           "period": "2025-06",
-          "value": 0.181
+          "value": 18.52
         },
         {
           "period": "2025-07",
-          "value": 0.182
+          "value": 18.25
         },
         {
           "period": "2025-08",
-          "value": 0.182
+          "value": 18.52
         },
         {
           "period": "2025-09",
-          "value": 0.18
+          "value": 18.73
+        },
+        {
+          "period": "2025-10",
+          "value": 18.37
         },
         {
           "period": "2025-11",
-          "value": 0.176
+          "value": 18.39
         },
         {
           "period": "2025-12",
-          "value": 0.175
+          "value": 17.84
         },
         {
           "period": "2026-01",
-          "value": 0.177
+          "value": 18.2
         },
         {
           "period": "2026-02",
-          "value": 0.177
+          "value": 18.74
         },
         {
           "period": "2026-03",
-          "value": 0.177
-        },
-        {
-          "period": "2026-04",
-          "value": 0.181
+          "value": 18.8
         }
       ]
     },
     {
       "key": "utility_gas",
-      "label": "Utility (piped) gas",
+      "label": "Natural gas, residential",
       "unit": "per therm",
       "category": "Energy",
-      "geography": "midwest",
-      "geography_label": "Midwest region",
-      "series_id": "APU020072620",
+      "geography": "wisconsin",
+      "geography_label": "Wisconsin",
+      "source": "eia",
+      "series_id": "NG.N3010WI3.M",
       "latest": {
-        "period": "2026-04",
-        "period_name": "April 2026",
-        "value": 1.259
+        "period": "2026-03",
+        "period_name": "March 2026",
+        "value": 0.914
       },
-      "prior_month_value": 1.291,
-      "year_ago_value": 1.301,
-      "change_mom_pct": -2.5,
-      "change_yoy_pct": -3.2,
+      "prior_month_value": 1.418,
+      "year_ago_value": 0.956,
+      "change_mom_pct": -35.5,
+      "change_yoy_pct": -4.4,
       "history": [
         {
           "period": "2023-01",
-          "value": 1.38
-        },
-        {
-          "period": "2023-02",
-          "value": 1.3
-        },
-        {
-          "period": "2023-03",
-          "value": 1.19
-        },
-        {
-          "period": "2023-04",
-          "value": 1.113
-        },
-        {
-          "period": "2023-05",
-          "value": 1.097
-        },
-        {
-          "period": "2023-06",
-          "value": 1.086
-        },
-        {
-          "period": "2023-07",
-          "value": 1.098
-        },
-        {
-          "period": "2023-08",
-          "value": 1.093
-        },
-        {
-          "period": "2023-09",
-          "value": 1.037
-        },
-        {
-          "period": "2023-10",
-          "value": 1.067
-        },
-        {
-          "period": "2023-11",
-          "value": 1.114
-        },
-        {
-          "period": "2023-12",
-          "value": 1.119
-        },
-        {
-          "period": "2024-01",
-          "value": 1.132
-        },
-        {
-          "period": "2024-02",
-          "value": 1.15
-        },
-        {
-          "period": "2024-03",
-          "value": 1.092
-        },
-        {
-          "period": "2024-04",
-          "value": 1.061
-        },
-        {
-          "period": "2024-05",
-          "value": 1.061
-        },
-        {
-          "period": "2024-06",
-          "value": 1.104
-        },
-        {
-          "period": "2024-07",
-          "value": 1.12
-        },
-        {
-          "period": "2024-08",
-          "value": 1.102
-        },
-        {
-          "period": "2024-09",
-          "value": 1.087
-        },
-        {
-          "period": "2024-10",
-          "value": 1.121
-        },
-        {
-          "period": "2024-11",
-          "value": 1.139
-        },
-        {
-          "period": "2024-12",
-          "value": 1.208
-        },
-        {
-          "period": "2025-01",
-          "value": 1.209
-        },
-        {
-          "period": "2025-02",
           "value": 1.227
         },
         {
+          "period": "2023-02",
+          "value": 1.155
+        },
+        {
+          "period": "2023-03",
+          "value": 1.121
+        },
+        {
+          "period": "2023-04",
+          "value": 0.714
+        },
+        {
+          "period": "2023-05",
+          "value": 0.883
+        },
+        {
+          "period": "2023-06",
+          "value": 1.37
+        },
+        {
+          "period": "2023-07",
+          "value": 1.575
+        },
+        {
+          "period": "2023-08",
+          "value": 1.628
+        },
+        {
+          "period": "2023-09",
+          "value": 1.376
+        },
+        {
+          "period": "2023-10",
+          "value": 0.928
+        },
+        {
+          "period": "2023-11",
+          "value": 0.848
+        },
+        {
+          "period": "2023-12",
+          "value": 0.86
+        },
+        {
+          "period": "2024-01",
+          "value": 0.879
+        },
+        {
+          "period": "2024-02",
+          "value": 0.954
+        },
+        {
+          "period": "2024-03",
+          "value": 0.897
+        },
+        {
+          "period": "2024-04",
+          "value": 0.915
+        },
+        {
+          "period": "2024-05",
+          "value": 1.033
+        },
+        {
+          "period": "2024-06",
+          "value": 1.426
+        },
+        {
+          "period": "2024-07",
+          "value": 1.56
+        },
+        {
+          "period": "2024-08",
+          "value": 1.478
+        },
+        {
+          "period": "2024-09",
+          "value": 1.362
+        },
+        {
+          "period": "2024-10",
+          "value": 1.061
+        },
+        {
+          "period": "2024-11",
+          "value": 0.939
+        },
+        {
+          "period": "2024-12",
+          "value": 0.966
+        },
+        {
+          "period": "2025-01",
+          "value": 0.931
+        },
+        {
+          "period": "2025-02",
+          "value": 0.959
+        },
+        {
           "period": "2025-03",
-          "value": 1.233
+          "value": 0.956
         },
         {
           "period": "2025-04",
-          "value": 1.301
+          "value": 1.02
         },
         {
           "period": "2025-05",
-          "value": 1.291
+          "value": 1.062
         },
         {
           "period": "2025-06",
-          "value": 1.317
+          "value": 1.552
         },
         {
           "period": "2025-07",
-          "value": 1.294
+          "value": 1.614
         },
         {
           "period": "2025-08",
-          "value": 1.268
+          "value": 1.605
         },
         {
           "period": "2025-09",
-          "value": 1.228
+          "value": 1.544
+        },
+        {
+          "period": "2025-10",
+          "value": 1.01
         },
         {
           "period": "2025-11",
-          "value": 1.258
+          "value": 1.047
         },
         {
           "period": "2025-12",
-          "value": 1.338
+          "value": 1.057
         },
         {
           "period": "2026-01",
-          "value": 1.355
+          "value": 1.084
         },
         {
           "period": "2026-02",
-          "value": 1.464
+          "value": 1.418
         },
         {
           "period": "2026-03",
-          "value": 1.291
-        },
-        {
-          "period": "2026-04",
-          "value": 1.259
+          "value": 0.914
         }
       ]
     },
@@ -4539,354 +4566,368 @@
       "label": "Gasoline, unleaded regular",
       "unit": "per gallon",
       "category": "Energy",
-      "geography": "midwest",
-      "geography_label": "Midwest region",
-      "series_id": "APU020074714",
+      "geography": "padd2",
+      "geography_label": "Midwest (PADD 2)",
+      "source": "eia",
+      "series_id": "PET.EMM_EPMR_PTE_R20_DPG.M",
       "latest": {
-        "period": "2026-04",
-        "period_name": "April 2026",
-        "value": 3.851
+        "period": "2026-05",
+        "period_name": "May 2026",
+        "value": 4.389
       },
-      "prior_month_value": 3.459,
-      "year_ago_value": 3.095,
-      "change_mom_pct": 11.3,
-      "change_yoy_pct": 24.4,
+      "prior_month_value": 3.833,
+      "year_ago_value": 3.013,
+      "change_mom_pct": 14.5,
+      "change_yoy_pct": 45.7,
       "history": [
         {
           "period": "2023-01",
-          "value": 3.294
+          "value": 3.217
         },
         {
           "period": "2023-02",
-          "value": 3.299
+          "value": 3.231
         },
         {
           "period": "2023-03",
-          "value": 3.341
+          "value": 3.27
         },
         {
           "period": "2023-04",
-          "value": 3.613
+          "value": 3.512
         },
         {
           "period": "2023-05",
-          "value": 3.539
-        },
-        {
-          "period": "2023-06",
-          "value": 3.577
-        },
-        {
-          "period": "2023-07",
-          "value": 3.496
-        },
-        {
-          "period": "2023-08",
-          "value": 3.735
-        },
-        {
-          "period": "2023-09",
-          "value": 3.694
-        },
-        {
-          "period": "2023-10",
-          "value": 3.395
-        },
-        {
-          "period": "2023-11",
-          "value": 3.202
-        },
-        {
-          "period": "2023-12",
-          "value": 2.919
-        },
-        {
-          "period": "2024-01",
-          "value": 2.894
-        },
-        {
-          "period": "2024-02",
-          "value": 3.131
-        },
-        {
-          "period": "2024-03",
-          "value": 3.417
-        },
-        {
-          "period": "2024-04",
-          "value": 3.556
-        },
-        {
-          "period": "2024-05",
-          "value": 3.534
-        },
-        {
-          "period": "2024-06",
           "value": 3.454
         },
         {
+          "period": "2023-06",
+          "value": 3.471
+        },
+        {
+          "period": "2023-07",
+          "value": 3.436
+        },
+        {
+          "period": "2023-08",
+          "value": 3.701
+        },
+        {
+          "period": "2023-09",
+          "value": 3.666
+        },
+        {
+          "period": "2023-10",
+          "value": 3.371
+        },
+        {
+          "period": "2023-11",
+          "value": 3.138
+        },
+        {
+          "period": "2023-12",
+          "value": 2.887
+        },
+        {
+          "period": "2024-01",
+          "value": 2.829
+        },
+        {
+          "period": "2024-02",
+          "value": 3.044
+        },
+        {
+          "period": "2024-03",
+          "value": 3.318
+        },
+        {
+          "period": "2024-04",
+          "value": 3.441
+        },
+        {
+          "period": "2024-05",
+          "value": 3.43
+        },
+        {
+          "period": "2024-06",
+          "value": 3.312
+        },
+        {
           "period": "2024-07",
-          "value": 3.528
+          "value": 3.411
         },
         {
           "period": "2024-08",
-          "value": 3.442
+          "value": 3.338
         },
         {
           "period": "2024-09",
-          "value": 3.157
+          "value": 3.091
         },
         {
           "period": "2024-10",
-          "value": 3.098
+          "value": 3.016
         },
         {
           "period": "2024-11",
-          "value": 2.941
+          "value": 2.888
         },
         {
           "period": "2024-12",
-          "value": 2.962
+          "value": 2.881
         },
         {
           "period": "2025-01",
-          "value": 3.023
+          "value": 2.942
         },
         {
           "period": "2025-02",
-          "value": 2.979
+          "value": 2.956
         },
         {
           "period": "2025-03",
-          "value": 2.989
+          "value": 2.954
         },
         {
           "period": "2025-04",
-          "value": 3.095
+          "value": 3.029
         },
         {
           "period": "2025-05",
-          "value": 3.07
+          "value": 3.013
         },
         {
           "period": "2025-06",
-          "value": 3.099
+          "value": 3.019
         },
         {
           "period": "2025-07",
-          "value": 3.083
+          "value": 3.004
         },
         {
           "period": "2025-08",
-          "value": 3.13
+          "value": 3.028
         },
         {
           "period": "2025-09",
-          "value": 3.088
+          "value": 3.012
         },
         {
           "period": "2025-10",
-          "value": 2.933
+          "value": 2.856
         },
         {
           "period": "2025-11",
-          "value": 2.965
+          "value": 2.876
         },
         {
           "period": "2025-12",
-          "value": 2.753
+          "value": 2.672
         },
         {
           "period": "2026-01",
-          "value": 2.676
+          "value": 2.633
         },
         {
           "period": "2026-02",
-          "value": 2.741
+          "value": 2.674
         },
         {
           "period": "2026-03",
-          "value": 3.459
+          "value": 3.371
         },
         {
           "period": "2026-04",
-          "value": 3.851
+          "value": 3.833
+        },
+        {
+          "period": "2026-05",
+          "value": 4.389
         }
       ]
     },
     {
       "key": "diesel",
-      "label": "Diesel fuel",
+      "label": "Diesel, on-highway",
       "unit": "per gallon",
       "category": "Energy",
-      "geography": "midwest",
-      "geography_label": "Midwest region",
-      "series_id": "APU020074717",
+      "geography": "padd2",
+      "geography_label": "Midwest (PADD 2)",
+      "source": "eia",
+      "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.M",
       "latest": {
-        "period": "2026-04",
-        "period_name": "April 2026",
-        "value": 4.982
+        "period": "2026-05",
+        "period_name": "May 2026",
+        "value": 5.732
       },
-      "prior_month_value": 4.497,
-      "year_ago_value": 3.393,
-      "change_mom_pct": 10.8,
-      "change_yoy_pct": 46.8,
+      "prior_month_value": 5.246,
+      "year_ago_value": 3.439,
+      "change_mom_pct": 9.3,
+      "change_yoy_pct": 66.7,
       "history": [
         {
           "period": "2023-01",
-          "value": 4.503
+          "value": 4.427
         },
         {
           "period": "2023-02",
-          "value": 4.335
+          "value": 4.242
         },
         {
           "period": "2023-03",
-          "value": 4.116
+          "value": 4.055
         },
         {
           "period": "2023-04",
-          "value": 4.085
+          "value": 3.983
         },
         {
           "period": "2023-05",
-          "value": 3.946
+          "value": 3.832
         },
         {
           "period": "2023-06",
-          "value": 3.829
+          "value": 3.731
         },
         {
           "period": "2023-07",
-          "value": 3.728
+          "value": 3.818
         },
         {
           "period": "2023-08",
-          "value": 4.187
+          "value": 4.3
         },
         {
           "period": "2023-09",
-          "value": 4.342
+          "value": 4.435
         },
         {
           "period": "2023-10",
-          "value": 4.295
+          "value": 4.425
         },
         {
           "period": "2023-11",
-          "value": 4.253
+          "value": 4.241
         },
         {
           "period": "2023-12",
-          "value": 4.009
+          "value": 3.882
         },
         {
           "period": "2024-01",
-          "value": 3.772
+          "value": 3.716
         },
         {
           "period": "2024-02",
-          "value": 3.844
+          "value": 3.938
         },
         {
           "period": "2024-03",
-          "value": 3.885
+          "value": 3.943
         },
         {
           "period": "2024-04",
-          "value": 3.933
+          "value": 3.948
         },
         {
           "period": "2024-05",
-          "value": 3.8
+          "value": 3.725
         },
         {
           "period": "2024-06",
-          "value": 3.662
+          "value": 3.597
         },
         {
           "period": "2024-07",
-          "value": 3.715
+          "value": 3.747
         },
         {
           "period": "2024-08",
-          "value": 3.694
+          "value": 3.678
         },
         {
           "period": "2024-09",
-          "value": 3.546
+          "value": 3.531
         },
         {
           "period": "2024-10",
-          "value": 3.543
+          "value": 3.588
         },
         {
           "period": "2024-11",
-          "value": 3.459
+          "value": 3.505
         },
         {
           "period": "2024-12",
-          "value": 3.389
+          "value": 3.463
         },
         {
           "period": "2025-01",
-          "value": 3.414
+          "value": 3.57
         },
         {
           "period": "2025-02",
-          "value": 3.435
+          "value": 3.592
         },
         {
           "period": "2025-03",
-          "value": 3.391
+          "value": 3.504
         },
         {
           "period": "2025-04",
-          "value": 3.393
+          "value": 3.505
         },
         {
           "period": "2025-05",
-          "value": 3.339
+          "value": 3.439
         },
         {
           "period": "2025-06",
-          "value": 3.398
+          "value": 3.569
         },
         {
           "period": "2025-07",
-          "value": 3.574
+          "value": 3.764
         },
         {
           "period": "2025-08",
-          "value": 3.553
+          "value": 3.735
         },
         {
           "period": "2025-09",
-          "value": 3.526
+          "value": 3.73
+        },
+        {
+          "period": "2025-10",
+          "value": 3.639
         },
         {
           "period": "2025-11",
-          "value": 3.722
+          "value": 3.857
         },
         {
           "period": "2025-12",
-          "value": 3.525
+          "value": 3.573
         },
         {
           "period": "2026-01",
-          "value": 3.367
+          "value": 3.444
         },
         {
           "period": "2026-02",
-          "value": 3.521
+          "value": 3.681
         },
         {
           "period": "2026-03",
-          "value": 4.497
+          "value": 4.785
         },
         {
           "period": "2026-04",
-          "value": 4.982
+          "value": 5.246
+        },
+        {
+          "period": "2026-05",
+          "value": 5.732
         }
       ]
     }
