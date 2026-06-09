@@ -120,7 +120,7 @@ export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
         <LineChart history={item.history} unit={item.unit} direction={dir} />
         {real && (
           <p className="modal__realnote">
-            Past months shown in {item.latest?.period_name} dollars (CPI-adjusted,
+            Past months shown in today’s dollars (CPI-adjusted,
             {item.geography === 'midwest' ? ' Midwest' : ' U.S.'} all-items).
           </p>
         )}
