@@ -135,11 +135,10 @@ def eia_request(series_id, start_year, api_key):
     EIA requires a key on every call (no unauthenticated tier). One series per
     request — fine for our handful of energy items.
     """
-    start = f"{start_year}-01"
-    url = (f"{EIA_URL}{series_id}?api_key={api_key}"
-           f"&frequency=monthly&data[0]=value"
-           f"&start={start}"
-           f"&sort[0][column]=period&sort[0][direction]=asc&length=5000")
+    # The /seriesid endpoint returns the series with its value column already
+    # included — keep params minimal (extra data[]/frequency facets can suppress
+    # the value column). We bound history client-side in eia_to_records.
+    url = f"{EIA_URL}{series_id}?api_key={api_key}&start={start_year}-01&length=5000"
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:
@@ -158,22 +157,37 @@ def eia_request(series_id, start_year, api_key):
         raise RuntimeError(f"EIA API unexpected shape for {series_id}: {payload}") from exc
 
 
-def eia_to_records(raw, value_factor=1.0):
+def eia_to_records(raw, value_factor=1.0, start_year=None):
     """EIA monthly observations as records, oldest first. Mirrors to_records().
 
-    EIA gives period 'YYYY-MM' directly and a numeric value (or null). value_factor
-    applies a documented unit conversion (e.g. natural gas $/Mcf -> $/therm).
+    EIA gives period 'YYYY-MM' directly and a numeric value (or null) under the
+    'value' key. value_factor applies a documented unit conversion (e.g. natural
+    gas $/Mcf -> $/therm). start_year bounds history client-side in case the API
+    ignores the start param.
     """
     records = []
     for d in raw:
         period = d.get("period", "")
         value = d.get("value")
         if value in (None, ""):
+            # Insurance: if the value column isn't named "value", take the first
+            # other float-coercible field (seriesid rows carry little else).
+            for k, v in d.items():
+                if k in ("period", "value") or v in (None, ""):
+                    continue
+                try:
+                    value = float(v)
+                    break
+                except (TypeError, ValueError):
+                    continue
+        if value in (None, ""):
             continue
         parts = period.split("-")
         if len(parts) != 2:  # monthly only; skip anything else
             continue
         year, month = int(parts[0]), int(parts[1])
+        if start_year is not None and year < start_year:
+            continue
         records.append({
             "pkey": year * 12 + (month - 1),
             "period": f"{year}-{month:02d}",
@@ -194,7 +208,7 @@ def build_item(row, records):
     """Assemble one output item. Latest must exist (precondition); MoM/YoY may be None."""
     if not records:
         raise RuntimeError(
-            f"{row['key']} ({row['series_id']}): BLS returned no usable data. "
+            f"{row['key']} ({row['series_id']}): API returned no usable data. "
             f"Basket precondition violated — re-validate the series, do not patch around it."
         )
     by_pkey = {r["pkey"]: r for r in records}
@@ -350,7 +364,7 @@ def main():
     for row in items:
         if row.get("source") == "eia":
             raw = eia_request(row["series_id"], start_year, eia_key)
-            records = eia_to_records(raw, float(row.get("value_factor", 1.0)))
+            records = eia_to_records(raw, float(row.get("value_factor", 1.0)), start_year)
         else:
             raw = raw_by_series.get(row["series_id"])
             if raw is None:
