@@ -1,0 +1,413 @@
+/* =========================================================================
+   WPR Midwest Grocery & Energy Prices — design system
+   Teal #3A867C / #4AABA7 · cream/ink newspaper aesthetic
+   Playfair Display (headlines) · Source Sans 3 (body) · JetBrains Mono (nums)
+   ========================================================================= */
+
+:root {
+  /* brand */
+  --teal: #3a867c;
+  --teal-light: #4aaba7;
+
+  /* newspaper paper + ink */
+  --cream: #faf6ec;
+  --card: #fffdf7;
+  --ink: #211d18;
+  --ink-soft: #6a6157;
+  --rule: #e7dfcd;
+  --rule-strong: #d8cdb4;
+
+  /* semantics — cost-of-living: up = pricier (red), down = cheaper (green) */
+  --up: #b23a2e;
+  --up-bg: #f7e7e3;
+  --down: #2f7a52;
+  --down-bg: #e3f0e7;
+  --flat: var(--ink-soft);
+  --flat-bg: #efe9da;
+
+  /* sparkline strokes */
+  --spark-up: #b23a2e;
+  --spark-down: #2f7a52;
+  --spark-flat: #9c9385;
+
+  /* type */
+  --f-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --f-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --maxw: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--teal);
+}
+
+/* ---- loading / error states ------------------------------------------- */
+.state {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.state--error {
+  color: var(--up);
+}
+
+/* ---- page shell ------------------------------------------------------- */
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+/* ---- masthead --------------------------------------------------------- */
+.masthead {
+  border-bottom: 3px double var(--rule-strong);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+.masthead__kicker {
+  font-family: var(--f-body);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--teal);
+  margin: 0 0 0.35rem;
+}
+.masthead__title {
+  font-family: var(--f-head);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem;
+}
+.masthead__period {
+  font-family: var(--f-body);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+}
+.masthead__period strong {
+  color: var(--ink);
+  font-family: var(--f-mono);
+  font-weight: 600;
+}
+.masthead__note {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 64ch;
+}
+
+/* ---- biggest movers --------------------------------------------------- */
+.movers {
+  background: var(--teal);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1.25rem 1.35rem 1.4rem;
+  margin-bottom: 2.25rem;
+  box-shadow: 0 1px 0 var(--rule-strong);
+}
+.movers__head {
+  margin-bottom: 0.9rem;
+}
+.movers__title {
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.movers__sub {
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+.movers__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.6rem;
+}
+.mover {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+  padding: 0.6rem 0.8rem;
+}
+.mover__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.mover__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mover__geo {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.72);
+}
+.mover__right {
+  text-align: right;
+  flex-shrink: 0;
+}
+.mover__pct {
+  display: block;
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.mover__pct--up {
+  color: #ffd7cf;
+}
+.mover__pct--down {
+  color: #c9f0d8;
+}
+.mover__price {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+.mover__unit {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* ---- category sections ------------------------------------------------ */
+.category {
+  margin-bottom: 2.25rem;
+}
+.category__title {
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 1.55rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+  gap: 1rem;
+}
+
+/* ---- item card -------------------------------------------------------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  padding: 1rem 1.05rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(33, 29, 24, 0.04);
+}
+.card__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+.card__title {
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0;
+}
+.card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+.card__value {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 1.85rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.card__unit {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.card__chips {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+/* change chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.chip__label {
+  font-family: var(--f-body);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.64rem;
+  opacity: 0.7;
+}
+.chip__arrow {
+  font-size: 0.62rem;
+}
+.chip__value {
+  font-family: var(--f-mono);
+  font-weight: 700;
+}
+.chip--up {
+  background: var(--up-bg);
+  color: var(--up);
+}
+.chip--down {
+  background: var(--down-bg);
+  color: var(--down);
+}
+.chip--flat {
+  background: var(--flat-bg);
+  color: var(--flat);
+}
+
+/* sparkline */
+.sparkline {
+  width: 100%;
+  height: 56px;
+  display: block;
+  margin-bottom: 0.55rem;
+}
+.sparkline--empty {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--rule),
+    var(--rule) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  opacity: 0.5;
+  border-radius: 4px;
+}
+.sparkline__line {
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.sparkline__area {
+  opacity: 0.1;
+}
+.sparkline__dot {
+  vector-effect: non-scaling-stroke;
+}
+
+.card__foot {
+  margin-top: auto;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-family: var(--f-mono);
+}
+
+/* ---- geography badge -------------------------------------------------- */
+.geo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  width: fit-content;
+}
+.geo__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.geo--midwest {
+  background: rgba(58, 134, 124, 0.12);
+  color: var(--teal);
+}
+.geo--midwest .geo__dot {
+  background: var(--teal);
+}
+.geo--us {
+  background: rgba(106, 97, 87, 0.12);
+  color: var(--ink-soft);
+}
+.geo--us .geo__dot {
+  background: var(--ink-soft);
+}
+
+/* ---- colophon --------------------------------------------------------- */
+.colophon {
+  border-top: 3px double var(--rule-strong);
+  padding-top: 1.1rem;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.colophon p {
+  margin: 0 0 0.5rem;
+}
+.colophon__geo .geo {
+  vertical-align: middle;
+}
+.colophon__meta {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+}
+
+/* ---- responsive ------------------------------------------------------- */
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem 0.9rem 2.5rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .movers__list {
+    grid-template-columns: 1fr;
+  }
+}
