@@ -4,7 +4,7 @@
     "source_url": "https://www.bls.gov/cpi/data.htm",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "April 2026",
-    "generated_utc": "2026-06-09T03:03:52Z",
+    "generated_utc": "2026-06-09T03:05:13Z",
     "note": "Average retail prices. Items labeled 'U.S. city average' lack a current Midwest regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
