@@ -47,17 +47,35 @@ honesty of the whole widget — do not hide it.
 
 ## Output contract (`data/prices.json`)
 ```
-meta:        source, source_url, midwest_region, latest_period,
-             generated_utc, note, used_api_key
-categories:  ordered category names (render sections in this order)
-items[]:     key, label, unit, category, geography, geography_label, series_id,
-             latest{period, period_name, value},
-             prior_month_value, year_ago_value,
-             change_mom_pct, change_yoy_pct,        # may be null on a data gap
-             history[]{period, value}               # monthly, oldest-first, for charts
+meta:          source, source_url, midwest_region, latest_period,
+               generated_utc, note, used_api_key
+summary:       one auto-generated newsroom sentence (basket cost + top movers)
+categories:    ordered category names (render sections in this order)
+items[]:       key, label, unit, category, geography, geography_label, series_id,
+               latest{period, period_name, value},
+               prior_month_value, year_ago_value,
+               change_mom_pct, change_yoy_pct,      # may be null on a data gap
+               history[]{period, value}             # monthly, oldest-first, for charts
+market_basket: label, unit, components[]{key,label,qty,unit,geography},
+               latest{period,period_name,value}, prior_month_value,
+               year_ago_value, change_mom_pct, change_yoy_pct,
+               history[]{period,value}              # months where EVERY item reports
+context:       cpi{ us, midwest }, earnings           # auxiliary BLS series
+               each: series_id, label, latest{period,period_name,value}, history[]
+               earnings also carries unit ("per hour")
 ```
 Cards: `latest.value` + `unit`, MoM/YoY chips, geography label, sparkline from
 `history`. A "biggest movers" panel = sort items by `abs(change_yoy_pct)`.
+
+**Derived views (frontend):**
+- **Inflation-adjusted ("real $")** = deflate each item's `history` by its own
+  geography's `context.cpi` series to the latest period's dollars
+  (`real = nominal * cpi_latest / cpi_period`). Midwest items use Midwest CPI,
+  U.S.-average items use U.S. CPI — the two-tier rule applies to deflation too.
+- **Minutes of work** = `latest.value / context.earnings.latest.value * 60`.
+  Always a current-dollar snapshot (not affected by the real/nominal toggle).
+- **Market basket** renders as a headline hero (cost + MoM/YoY + sparkline);
+  it mixes geographies by design — say so in the UI.
 
 ## Run it
 ```powershell

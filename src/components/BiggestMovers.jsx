@@ -27,12 +27,12 @@ export default function BiggestMovers({ items, count = 6, onOpen }) {
               role="button"
               tabIndex={0}
               onClick={(e) =>
-                onOpen?.(it, e.currentTarget.getBoundingClientRect().top + window.scrollY)
+                onOpen?.(it.key, e.currentTarget.getBoundingClientRect().top + window.scrollY)
               }
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault()
-                  onOpen?.(it, e.currentTarget.getBoundingClientRect().top + window.scrollY)
+                  onOpen?.(it.key, e.currentTarget.getBoundingClientRect().top + window.scrollY)
                 }
               }}
               aria-label={`${it.label}, ${formatPct(it.change_yoy_pct)} year over year. View price history.`}

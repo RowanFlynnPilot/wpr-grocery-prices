@@ -1,18 +1,18 @@
-import { formatPrice, changeDirection } from '../format.js'
+import { formatPrice, changeDirection, formatWorkTime } from '../format.js'
 import ChangeChip from './ChangeChip.jsx'
 import GeographyBadge from './GeographyBadge.jsx'
 import Sparkline from './Sparkline.jsx'
 
 // One basket item: name, the latest price + unit, MoM/YoY chips, geography
-// label, and a sparkline of the full history. The sparkline color tracks the
-// YoY direction so the card reads at a glance. The whole card is a button that
-// opens the detail chart modal.
-export default function ItemCard({ item, onOpen }) {
+// label, a sparkline of the full history, and a "minutes of work" stat. The
+// whole card is a button that opens the detail chart modal.
+export default function ItemCard({ item, onOpen, earnings }) {
   const dir = changeDirection(item.change_yoy_pct)
+  const work = earnings ? formatWorkTime(item.latest?.value, earnings.latest?.value) : null
 
   function open(e) {
     const rect = e.currentTarget.getBoundingClientRect()
-    onOpen(item, rect.top + window.scrollY)
+    onOpen(item.key, rect.top + window.scrollY)
   }
 
   function onKeyDown(e) {
@@ -24,6 +24,7 @@ export default function ItemCard({ item, onOpen }) {
 
   return (
     <article
+      id={`card-${item.key}`}
       className="card"
       role="button"
       tabIndex={0}
@@ -50,7 +51,13 @@ export default function ItemCard({ item, onOpen }) {
 
       <footer className="card__foot">
         <span>{item.latest?.period_name}</span>
-        <span className="card__cta" aria-hidden="true">View history →</span>
+        {work ? (
+          <span className="card__work" title="At average U.S. hourly earnings">
+            ≈ {work} of work
+          </span>
+        ) : (
+          <span className="card__cta" aria-hidden="true">View history →</span>
+        )}
       </footer>
     </article>
   )

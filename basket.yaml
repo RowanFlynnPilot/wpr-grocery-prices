@@ -16,6 +16,37 @@
 settings:
   history_years: 3        # months of trend pulled per item (>=2 needed for YoY)
 
+# Context series — NOT basket items. These power the inflation-adjusted ("real
+# dollars") view and the "minutes of work" framing. Same BLS API, validated
+# 2026-06-09. CPI is two-tier to mirror the price geography: Midwest items are
+# deflated by Midwest CPI, U.S.-average items by U.S. CPI.
+context:
+  cpi:
+    us:      { series_id: CUUR0000SA0, label: "CPI-U, U.S. city average, all items (NSA)" }
+    midwest: { series_id: CUUR0200SA0, label: "CPI-U, Midwest region, all items (NSA)" }
+  earnings:
+    series_id: CEU0500000003
+    label: "Average hourly earnings, U.S. private sector (NSA)"
+    unit: "per hour"
+
+# Market basket — a representative weekly staples cart, summed to a dollar total
+# readers can track month to month. Quantities are editorial (each in the item's
+# own unit) and meant to be edited freely. Mixes Midwest and U.S.-average items;
+# the UI says so. The basket trend only spans months where every item reports.
+market_basket:
+  label: "Weekly staples cart"
+  items:
+    - { key: ground_beef,    qty: 2 }   # lb
+    - { key: chicken_breast, qty: 2 }   # lb
+    - { key: eggs,           qty: 1 }   # dozen
+    - { key: milk,           qty: 1 }   # gallon
+    - { key: cheddar,        qty: 1 }   # lb
+    - { key: bread,          qty: 2 }   # loaves (per lb)
+    - { key: bananas,        qty: 3 }   # lb
+    - { key: potatoes,       qty: 5 }   # lb
+    - { key: rice,           qty: 2 }   # lb
+    - { key: coffee,         qty: 1 }   # lb
+
 items:
   # --- Meat & eggs ---
   - { key: ground_beef,    label: "Ground beef, 100% beef",      unit: "per lb",     category: "Meat & eggs", geography: midwest, series_id: APU0200703112 }

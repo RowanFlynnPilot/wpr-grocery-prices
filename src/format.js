@@ -26,3 +26,17 @@ export function changeDirection(pct) {
   if (pct < 0) return 'down'
   return 'flat'
 }
+
+// "Minutes of work" framing: how long the average worker labors to afford an
+// item, given average hourly earnings. Always a current-dollar snapshot.
+export function formatWorkTime(value, earningsPerHour) {
+  if (value == null || !earningsPerHour) return null
+  const min = (value / earningsPerHour) * 60
+  if (min >= 60) {
+    const h = Math.floor(min / 60)
+    const m = Math.round(min % 60)
+    return m ? `${h} hr ${m} min` : `${h} hr`
+  }
+  if (min < 1) return '<1 min'
+  return `${Math.round(min)} min`
+}

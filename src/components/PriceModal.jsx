@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { formatPrice, changeDirection } from '../format.js'
+import { formatPrice, changeDirection, formatWorkTime } from '../format.js'
+import { downloadItemCsv } from '../csv.js'
 import ChangeChip from './ChangeChip.jsx'
 import GeographyBadge from './GeographyBadge.jsx'
 import LineChart from './LineChart.jsx'
@@ -12,10 +13,11 @@ import LineChart from './LineChart.jsx'
 // inner scroll, so position:fixed would center on the whole tall iframe — far
 // from what the reader clicked. Absolute-positioning near the card keeps the
 // dialog in view in both standalone and embedded contexts.
-export default function PriceModal({ item, anchorY, onClose }) {
+export default function PriceModal({ item, anchorY, onClose, earnings, real }) {
   const dialogRef = useRef(null)
   const closeRef = useRef(null)
   const [docHeight, setDocHeight] = useState(0)
+  const [copied, setCopied] = useState(false)
 
   // Backdrop must cover the full document, not just the window.
   useLayoutEffect(() => {
@@ -50,6 +52,20 @@ export default function PriceModal({ item, anchorY, onClose }) {
   }, [anchorY])
 
   const dir = changeDirection(item.change_yoy_pct)
+  const work = earnings ? formatWorkTime(item.latest?.value, earnings.latest?.value) : null
+  const realLabel = real ? `real ${item.latest?.period_name} $` : null
+
+  function share() {
+    const url = new URL(window.location.href)
+    url.searchParams.set('item', item.key)
+    navigator.clipboard?.writeText(url.toString()).then(
+      () => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 1600)
+      },
+      () => {},
+    )
+  }
 
   return (
     <div
@@ -86,6 +102,7 @@ export default function PriceModal({ item, anchorY, onClose }) {
           <div className="modal__price">
             <span className="modal__value">{formatPrice(item.latest?.value)}</span>
             <span className="modal__unit">{item.unit}</span>
+            {real && <span className="modal__realtag">real&nbsp;$</span>}
           </div>
           <div className="modal__chips">
             <ChangeChip label="MoM" pct={item.change_mom_pct} />
@@ -94,12 +111,35 @@ export default function PriceModal({ item, anchorY, onClose }) {
           <span className="modal__asof">as of {item.latest?.period_name}</span>
         </div>
 
-        <LineChart history={item.history} unit={item.unit} direction={dir} />
+        {work && (
+          <p className="modal__work">
+            At average U.S. hourly earnings, that’s about <strong>{work}</strong> of work.
+          </p>
+        )}
 
-        <p className="modal__footnote">
-          {item.geography_label} average · {item.history?.length || 0} months ·
-          source: U.S. Bureau of Labor Statistics
-        </p>
+        <LineChart history={item.history} unit={item.unit} direction={dir} />
+        {real && (
+          <p className="modal__realnote">
+            Past months shown in {item.latest?.period_name} dollars (CPI-adjusted,
+            {item.geography === 'midwest' ? ' Midwest' : ' U.S.'} all-items).
+          </p>
+        )}
+
+        <div className="modal__actions">
+          <button type="button" className="modal__action" onClick={share}>
+            {copied ? '✓ Link copied' : '🔗 Share'}
+          </button>
+          <button
+            type="button"
+            className="modal__action"
+            onClick={() => downloadItemCsv(item, `value (${item.unit}${realLabel ? `, ${realLabel}` : ''})`)}
+          >
+            ⤓ CSV
+          </button>
+          <span className="modal__footnote">
+            {item.geography_label} · {item.history?.length || 0} months · U.S. BLS
+          </span>
+        </div>
       </div>
     </div>
   )

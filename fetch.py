@@ -50,7 +50,23 @@ def load_basket(path):
             raise ValueError(f"duplicate series_id: {row['series_id']}")
         seen_keys.add(row["key"])
         seen_series.add(row["series_id"])
-    return items, history_years
+
+    context = doc["context"]          # required: powers real-$ + minutes-of-work
+    market_basket = doc["market_basket"]
+    item_keys = {row["key"] for row in items}
+    for entry in market_basket["items"]:
+        if entry["key"] not in item_keys:
+            raise ValueError(f"market_basket references unknown item key: {entry['key']!r}")
+    return items, history_years, context, market_basket
+
+
+def context_series_ids(context):
+    """The auxiliary BLS series (CPI x2, earnings) fetched alongside the basket."""
+    return [
+        context["cpi"]["us"]["series_id"],
+        context["cpi"]["midwest"]["series_id"],
+        context["earnings"]["series_id"],
+    ]
 
 
 def chunked(seq, n):
@@ -140,25 +156,136 @@ def build_item(row, records):
     }
 
 
+def build_series(raw, series_id, label, extra=None):
+    """A context series (CPI, earnings) as latest + monthly history. Fail if empty."""
+    records = to_records(raw)
+    if not records:
+        raise RuntimeError(f"context series {series_id} returned no usable data — re-validate it")
+    latest = records[-1]
+    out = {
+        "series_id": series_id,
+        "label": label,
+        "latest": {"period": latest["period"], "period_name": latest["period_name"],
+                   "value": latest["value"]},
+        "history": [{"period": r["period"], "value": r["value"]} for r in records],
+    }
+    if extra:
+        out.update(extra)
+    return out
+
+
+def build_context(raw_by_series, context):
+    cpi_us = context["cpi"]["us"]
+    cpi_mw = context["cpi"]["midwest"]
+    earn = context["earnings"]
+    return {
+        "cpi": {
+            "us": build_series(raw_by_series[cpi_us["series_id"]], cpi_us["series_id"], cpi_us["label"]),
+            "midwest": build_series(raw_by_series[cpi_mw["series_id"]], cpi_mw["series_id"], cpi_mw["label"]),
+        },
+        "earnings": build_series(
+            raw_by_series[earn["series_id"]], earn["series_id"], earn["label"],
+            extra={"unit": earn.get("unit", "per hour")},
+        ),
+    }
+
+
+def build_market_basket(records_by_key, mb_cfg, items_by_key):
+    """Sum a fixed editorial cart to a dollar total per month.
+
+    Trend spans only months where EVERY cart item reports (no carry-forward,
+    no zero-fill). Latest/MoM/YoY computed from that common set.
+    """
+    parts, period_by_pkey = [], {}
+    for entry in mb_cfg["items"]:
+        key, qty = entry["key"], float(entry["qty"])
+        recs = records_by_key[key]
+        by_pkey = {}
+        for r in recs:
+            by_pkey[r["pkey"]] = r["value"]
+            period_by_pkey[r["pkey"]] = (r["period"], r["period_name"])
+        item = items_by_key[key]
+        parts.append({"key": key, "qty": qty, "label": item["label"],
+                      "unit": item["unit"], "geography": item["geography"], "by_pkey": by_pkey})
+
+    common = set(parts[0]["by_pkey"])
+    for p in parts[1:]:
+        common &= set(p["by_pkey"])
+    if not common:
+        raise RuntimeError("market_basket: no month where every cart item reports")
+
+    totals = {pk: round(sum(p["qty"] * p["by_pkey"][pk] for p in parts), 2) for pk in common}
+    pkeys = sorted(common)
+    latest_pk = pkeys[-1]
+
+    return {
+        "label": mb_cfg.get("label", "Market basket"),
+        "unit": "cart total",
+        "components": [{"key": p["key"], "label": p["label"], "qty": p["qty"],
+                        "unit": p["unit"], "geography": p["geography"]} for p in parts],
+        "latest": {"period": period_by_pkey[latest_pk][0],
+                   "period_name": period_by_pkey[latest_pk][1], "value": totals[latest_pk]},
+        "prior_month_value": totals.get(latest_pk - 1),
+        "year_ago_value": totals.get(latest_pk - 12),
+        "change_mom_pct": pct_change(totals[latest_pk], totals.get(latest_pk - 1)),
+        "change_yoy_pct": pct_change(totals[latest_pk], totals.get(latest_pk - 12)),
+        "history": [{"period": period_by_pkey[pk][0], "value": totals[pk]} for pk in pkeys],
+    }
+
+
+def build_summary(market_basket, out_items):
+    """One newsroom-ready sentence summarizing the latest month."""
+    mb = market_basket
+    cost = f"${mb['latest']['value']:.2f}"
+    when = mb["latest"]["period_name"]
+    yoy = mb["change_yoy_pct"]
+    if yoy is None:
+        lead = f"The {mb['label'].lower()} costs {cost} in {when}."
+    elif abs(yoy) < 0.05:
+        lead = f"The {mb['label'].lower()} costs {cost} in {when}, little changed from a year ago."
+    else:
+        move = "up" if yoy > 0 else "down"
+        lead = f"The {mb['label'].lower()} costs {cost} in {when}, {move} {abs(yoy)}% from a year ago."
+
+    movers = [it for it in out_items if it["change_yoy_pct"] is not None]
+    if not movers:
+        return lead
+    up = max(movers, key=lambda it: it["change_yoy_pct"])
+    down = min(movers, key=lambda it: it["change_yoy_pct"])
+    up_txt = f"{up['label']} rose the most over the year (+{up['change_yoy_pct']}%)"
+    if down["change_yoy_pct"] < 0:
+        down_txt = f"{down['label']} fell the most ({down['change_yoy_pct']}%)"
+    else:
+        down_txt = f"{down['label']} rose the least (+{down['change_yoy_pct']}%)"
+    return f"{lead} {up_txt}; {down_txt}."
+
+
 def main():
-    items, history_years = load_basket(BASKET_PATH)
+    items, history_years, context, market_basket = load_basket(BASKET_PATH)
     api_key = os.environ.get("BLS_API_KEY", "").strip()
     batch_size = 50 if api_key else 25  # BLS per-query series cap
 
     end_year = datetime.now(timezone.utc).year
     start_year = end_year - history_years
 
-    series_ids = [row["series_id"] for row in items]
+    series_ids = [row["series_id"] for row in items] + context_series_ids(context)
     raw_by_series = {}
     for batch in chunked(series_ids, batch_size):
         raw_by_series.update(bls_request(batch, start_year, end_year, api_key))
 
-    out_items = []
+    out_items, records_by_key = [], {}
     for row in items:
         raw = raw_by_series.get(row["series_id"])
         if raw is None:
             raise RuntimeError(f"{row['key']}: series {row['series_id']} absent from BLS response")
-        out_items.append(build_item(row, to_records(raw)))
+        records = to_records(raw)
+        records_by_key[row["key"]] = records
+        out_items.append(build_item(row, records))
+
+    items_by_key = {row["key"]: row for row in items}
+    ctx = build_context(raw_by_series, context)
+    mb = build_market_basket(records_by_key, market_basket, items_by_key)
+    summary = build_summary(mb, out_items)
 
     latest = max(out_items, key=lambda it: it["latest"]["period"])["latest"]
     document = {
@@ -172,13 +299,17 @@ def main():
                      "Midwest regional breakout. Data lags roughly two months."),
             "used_api_key": bool(api_key),
         },
+        "summary": summary,
         "categories": list(dict.fromkeys(it["category"] for it in out_items)),
         "items": out_items,
+        "market_basket": mb,
+        "context": ctx,
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(document, indent=2), encoding="utf-8")
-    print(f"Wrote {OUT_PATH} — {len(out_items)} items, latest {latest['period_name']}")
+    print(f"Wrote {OUT_PATH} — {len(out_items)} items + market basket + context, "
+          f"latest {latest['period_name']}")
 
 
 if __name__ == "__main__":

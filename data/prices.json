@@ -4,10 +4,11 @@
     "source_url": "https://www.bls.gov/cpi/data.htm",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "April 2026",
-    "generated_utc": "2026-06-09T03:05:13Z",
+    "generated_utc": "2026-06-09T04:03:25Z",
     "note": "Average retail prices. Items labeled 'U.S. city average' lack a current Midwest regional breakout. Data lags roughly two months.",
-    "used_api_key": true
+    "used_api_key": false
   },
+  "summary": "The weekly staples cart costs $55.59 in April 2026, little changed from a year ago. Diesel fuel rose the most over the year (+46.8%); Eggs, grade A, large fell the most (-56.1%).",
   "categories": [
     "Meat & eggs",
     "Dairy",
@@ -4889,5 +4890,762 @@
         }
       ]
     }
-  ]
+  ],
+  "market_basket": {
+    "label": "Weekly staples cart",
+    "unit": "cart total",
+    "components": [
+      {
+        "key": "ground_beef",
+        "label": "Ground beef, 100% beef",
+        "qty": 2.0,
+        "unit": "per lb",
+        "geography": "midwest"
+      },
+      {
+        "key": "chicken_breast",
+        "label": "Chicken breast, boneless",
+        "qty": 2.0,
+        "unit": "per lb",
+        "geography": "midwest"
+      },
+      {
+        "key": "eggs",
+        "label": "Eggs, grade A, large",
+        "qty": 1.0,
+        "unit": "per dozen",
+        "geography": "us"
+      },
+      {
+        "key": "milk",
+        "label": "Milk, whole, fortified",
+        "qty": 1.0,
+        "unit": "per gallon",
+        "geography": "us"
+      },
+      {
+        "key": "cheddar",
+        "label": "Cheddar cheese, natural",
+        "qty": 1.0,
+        "unit": "per lb",
+        "geography": "us"
+      },
+      {
+        "key": "bread",
+        "label": "Bread, white, pan",
+        "qty": 2.0,
+        "unit": "per lb",
+        "geography": "midwest"
+      },
+      {
+        "key": "bananas",
+        "label": "Bananas",
+        "qty": 3.0,
+        "unit": "per lb",
+        "geography": "midwest"
+      },
+      {
+        "key": "potatoes",
+        "label": "Potatoes, white",
+        "qty": 5.0,
+        "unit": "per lb",
+        "geography": "midwest"
+      },
+      {
+        "key": "rice",
+        "label": "Rice, white, long grain",
+        "qty": 2.0,
+        "unit": "per lb",
+        "geography": "us"
+      },
+      {
+        "key": "coffee",
+        "label": "Coffee, ground roast",
+        "qty": 1.0,
+        "unit": "per lb",
+        "geography": "us"
+      }
+    ],
+    "latest": {
+      "period": "2026-04",
+      "period_name": "April 2026",
+      "value": 55.59
+    },
+    "prior_month_value": 54.96,
+    "year_ago_value": 55.6,
+    "change_mom_pct": 1.1,
+    "change_yoy_pct": -0.0,
+    "history": [
+      {
+        "period": "2023-01",
+        "value": 52.14
+      },
+      {
+        "period": "2023-02",
+        "value": 51.98
+      },
+      {
+        "period": "2023-03",
+        "value": 50.95
+      },
+      {
+        "period": "2023-04",
+        "value": 50.92
+      },
+      {
+        "period": "2023-05",
+        "value": 49.37
+      },
+      {
+        "period": "2023-06",
+        "value": 48.89
+      },
+      {
+        "period": "2023-07",
+        "value": 49.57
+      },
+      {
+        "period": "2023-08",
+        "value": 49.56
+      },
+      {
+        "period": "2023-09",
+        "value": 49.09
+      },
+      {
+        "period": "2023-10",
+        "value": 48.9
+      },
+      {
+        "period": "2023-11",
+        "value": 50.3
+      },
+      {
+        "period": "2023-12",
+        "value": 50.29
+      },
+      {
+        "period": "2024-01",
+        "value": 50.1
+      },
+      {
+        "period": "2024-02",
+        "value": 50.66
+      },
+      {
+        "period": "2024-03",
+        "value": 51.02
+      },
+      {
+        "period": "2024-04",
+        "value": 49.9
+      },
+      {
+        "period": "2024-05",
+        "value": 50.09
+      },
+      {
+        "period": "2024-06",
+        "value": 51.59
+      },
+      {
+        "period": "2024-07",
+        "value": 51.7
+      },
+      {
+        "period": "2024-08",
+        "value": 51.71
+      },
+      {
+        "period": "2024-09",
+        "value": 52.95
+      },
+      {
+        "period": "2024-10",
+        "value": 52.26
+      },
+      {
+        "period": "2024-11",
+        "value": 53.03
+      },
+      {
+        "period": "2024-12",
+        "value": 52.79
+      },
+      {
+        "period": "2025-01",
+        "value": 53.73
+      },
+      {
+        "period": "2025-02",
+        "value": 55.26
+      },
+      {
+        "period": "2025-03",
+        "value": 56.35
+      },
+      {
+        "period": "2025-04",
+        "value": 55.6
+      },
+      {
+        "period": "2025-05",
+        "value": 55.57
+      },
+      {
+        "period": "2025-06",
+        "value": 55.31
+      },
+      {
+        "period": "2025-07",
+        "value": 55.48
+      },
+      {
+        "period": "2025-08",
+        "value": 56.76
+      },
+      {
+        "period": "2025-09",
+        "value": 57.09
+      },
+      {
+        "period": "2025-11",
+        "value": 54.7
+      },
+      {
+        "period": "2025-12",
+        "value": 54.45
+      },
+      {
+        "period": "2026-01",
+        "value": 54.8
+      },
+      {
+        "period": "2026-02",
+        "value": 54.87
+      },
+      {
+        "period": "2026-03",
+        "value": 54.96
+      },
+      {
+        "period": "2026-04",
+        "value": 55.59
+      }
+    ]
+  },
+  "context": {
+    "cpi": {
+      "us": {
+        "series_id": "CUUR0000SA0",
+        "label": "CPI-U, U.S. city average, all items (NSA)",
+        "latest": {
+          "period": "2026-04",
+          "period_name": "April 2026",
+          "value": 333.02
+        },
+        "history": [
+          {
+            "period": "2023-01",
+            "value": 299.17
+          },
+          {
+            "period": "2023-02",
+            "value": 300.84
+          },
+          {
+            "period": "2023-03",
+            "value": 301.836
+          },
+          {
+            "period": "2023-04",
+            "value": 303.363
+          },
+          {
+            "period": "2023-05",
+            "value": 304.127
+          },
+          {
+            "period": "2023-06",
+            "value": 305.109
+          },
+          {
+            "period": "2023-07",
+            "value": 305.691
+          },
+          {
+            "period": "2023-08",
+            "value": 307.026
+          },
+          {
+            "period": "2023-09",
+            "value": 307.789
+          },
+          {
+            "period": "2023-10",
+            "value": 307.671
+          },
+          {
+            "period": "2023-11",
+            "value": 307.051
+          },
+          {
+            "period": "2023-12",
+            "value": 306.746
+          },
+          {
+            "period": "2024-01",
+            "value": 308.417
+          },
+          {
+            "period": "2024-02",
+            "value": 310.326
+          },
+          {
+            "period": "2024-03",
+            "value": 312.332
+          },
+          {
+            "period": "2024-04",
+            "value": 313.548
+          },
+          {
+            "period": "2024-05",
+            "value": 314.069
+          },
+          {
+            "period": "2024-06",
+            "value": 314.175
+          },
+          {
+            "period": "2024-07",
+            "value": 314.54
+          },
+          {
+            "period": "2024-08",
+            "value": 314.796
+          },
+          {
+            "period": "2024-09",
+            "value": 315.301
+          },
+          {
+            "period": "2024-10",
+            "value": 315.664
+          },
+          {
+            "period": "2024-11",
+            "value": 315.493
+          },
+          {
+            "period": "2024-12",
+            "value": 315.605
+          },
+          {
+            "period": "2025-01",
+            "value": 317.671
+          },
+          {
+            "period": "2025-02",
+            "value": 319.082
+          },
+          {
+            "period": "2025-03",
+            "value": 319.799
+          },
+          {
+            "period": "2025-04",
+            "value": 320.795
+          },
+          {
+            "period": "2025-05",
+            "value": 321.465
+          },
+          {
+            "period": "2025-06",
+            "value": 322.561
+          },
+          {
+            "period": "2025-07",
+            "value": 323.048
+          },
+          {
+            "period": "2025-08",
+            "value": 323.976
+          },
+          {
+            "period": "2025-09",
+            "value": 324.8
+          },
+          {
+            "period": "2025-11",
+            "value": 324.122
+          },
+          {
+            "period": "2025-12",
+            "value": 324.054
+          },
+          {
+            "period": "2026-01",
+            "value": 325.252
+          },
+          {
+            "period": "2026-02",
+            "value": 326.785
+          },
+          {
+            "period": "2026-03",
+            "value": 330.213
+          },
+          {
+            "period": "2026-04",
+            "value": 333.02
+          }
+        ]
+      },
+      "midwest": {
+        "series_id": "CUUR0200SA0",
+        "label": "CPI-U, Midwest region, all items (NSA)",
+        "latest": {
+          "period": "2026-04",
+          "period_name": "April 2026",
+          "value": 308.889
+        },
+        "history": [
+          {
+            "period": "2023-01",
+            "value": 277.332
+          },
+          {
+            "period": "2023-02",
+            "value": 278.672
+          },
+          {
+            "period": "2023-03",
+            "value": 280.33
+          },
+          {
+            "period": "2023-04",
+            "value": 281.927
+          },
+          {
+            "period": "2023-05",
+            "value": 282.656
+          },
+          {
+            "period": "2023-06",
+            "value": 283.741
+          },
+          {
+            "period": "2023-07",
+            "value": 284.64
+          },
+          {
+            "period": "2023-08",
+            "value": 285.122
+          },
+          {
+            "period": "2023-09",
+            "value": 285.276
+          },
+          {
+            "period": "2023-10",
+            "value": 284.981
+          },
+          {
+            "period": "2023-11",
+            "value": 284.539
+          },
+          {
+            "period": "2023-12",
+            "value": 283.908
+          },
+          {
+            "period": "2024-01",
+            "value": 284.731
+          },
+          {
+            "period": "2024-02",
+            "value": 286.346
+          },
+          {
+            "period": "2024-03",
+            "value": 288.301
+          },
+          {
+            "period": "2024-04",
+            "value": 289.718
+          },
+          {
+            "period": "2024-05",
+            "value": 290.355
+          },
+          {
+            "period": "2024-06",
+            "value": 290.779
+          },
+          {
+            "period": "2024-07",
+            "value": 292.256
+          },
+          {
+            "period": "2024-08",
+            "value": 292.559
+          },
+          {
+            "period": "2024-09",
+            "value": 292.547
+          },
+          {
+            "period": "2024-10",
+            "value": 292.291
+          },
+          {
+            "period": "2024-11",
+            "value": 292.022
+          },
+          {
+            "period": "2024-12",
+            "value": 292.533
+          },
+          {
+            "period": "2025-01",
+            "value": 294.404
+          },
+          {
+            "period": "2025-02",
+            "value": 295.232
+          },
+          {
+            "period": "2025-03",
+            "value": 296.227
+          },
+          {
+            "period": "2025-04",
+            "value": 296.688
+          },
+          {
+            "period": "2025-05",
+            "value": 297.342
+          },
+          {
+            "period": "2025-06",
+            "value": 299.529
+          },
+          {
+            "period": "2025-07",
+            "value": 299.836
+          },
+          {
+            "period": "2025-08",
+            "value": 300.753
+          },
+          {
+            "period": "2025-09",
+            "value": 301.579
+          },
+          {
+            "period": "2025-11",
+            "value": 300.771
+          },
+          {
+            "period": "2025-12",
+            "value": 300.404
+          },
+          {
+            "period": "2026-01",
+            "value": 301.591
+          },
+          {
+            "period": "2026-02",
+            "value": 303.49
+          },
+          {
+            "period": "2026-03",
+            "value": 306.366
+          },
+          {
+            "period": "2026-04",
+            "value": 308.889
+          }
+        ]
+      }
+    },
+    "earnings": {
+      "series_id": "CEU0500000003",
+      "label": "Average hourly earnings, U.S. private sector (NSA)",
+      "latest": {
+        "period": "2026-05",
+        "period_name": "May 2026",
+        "value": 37.46
+      },
+      "history": [
+        {
+          "period": "2023-01",
+          "value": 33.4
+        },
+        {
+          "period": "2023-02",
+          "value": 33.2
+        },
+        {
+          "period": "2023-03",
+          "value": 33.26
+        },
+        {
+          "period": "2023-04",
+          "value": 33.76
+        },
+        {
+          "period": "2023-05",
+          "value": 33.45
+        },
+        {
+          "period": "2023-06",
+          "value": 33.42
+        },
+        {
+          "period": "2023-07",
+          "value": 33.92
+        },
+        {
+          "period": "2023-08",
+          "value": 33.71
+        },
+        {
+          "period": "2023-09",
+          "value": 33.94
+        },
+        {
+          "period": "2023-10",
+          "value": 34.24
+        },
+        {
+          "period": "2023-11",
+          "value": 34.05
+        },
+        {
+          "period": "2023-12",
+          "value": 34.23
+        },
+        {
+          "period": "2024-01",
+          "value": 34.64
+        },
+        {
+          "period": "2024-02",
+          "value": 34.57
+        },
+        {
+          "period": "2024-03",
+          "value": 34.65
+        },
+        {
+          "period": "2024-04",
+          "value": 34.86
+        },
+        {
+          "period": "2024-05",
+          "value": 34.81
+        },
+        {
+          "period": "2024-06",
+          "value": 34.99
+        },
+        {
+          "period": "2024-07",
+          "value": 34.93
+        },
+        {
+          "period": "2024-08",
+          "value": 35.02
+        },
+        {
+          "period": "2024-09",
+          "value": 35.46
+        },
+        {
+          "period": "2024-10",
+          "value": 35.41
+        },
+        {
+          "period": "2024-11",
+          "value": 35.48
+        },
+        {
+          "period": "2024-12",
+          "value": 35.82
+        },
+        {
+          "period": "2025-01",
+          "value": 36.0
+        },
+        {
+          "period": "2025-02",
+          "value": 36.2
+        },
+        {
+          "period": "2025-03",
+          "value": 36.28
+        },
+        {
+          "period": "2025-04",
+          "value": 36.23
+        },
+        {
+          "period": "2025-05",
+          "value": 36.2
+        },
+        {
+          "period": "2025-06",
+          "value": 36.33
+        },
+        {
+          "period": "2025-07",
+          "value": 36.31
+        },
+        {
+          "period": "2025-08",
+          "value": 36.41
+        },
+        {
+          "period": "2025-09",
+          "value": 36.62
+        },
+        {
+          "period": "2025-10",
+          "value": 36.78
+        },
+        {
+          "period": "2025-11",
+          "value": 37.11
+        },
+        {
+          "period": "2025-12",
+          "value": 36.94
+        },
+        {
+          "period": "2026-01",
+          "value": 37.32
+        },
+        {
+          "period": "2026-02",
+          "value": 37.55
+        },
+        {
+          "period": "2026-03",
+          "value": 37.53
+        },
+        {
+          "period": "2026-04",
+          "value": 37.49
+        },
+        {
+          "period": "2026-05",
+          "value": 37.46
+        }
+      ],
+      "unit": "per hour"
+    }
+  }
 }
