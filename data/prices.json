@@ -5,7 +5,7 @@
     "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "July 2026",
-    "generated_utc": "2026-08-18T13:34:59Z",
+    "generated_utc": "2026-08-25T13:38:25Z",
     "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
@@ -5856,9 +5856,9 @@
       "series_id": "SMU55000000500000003",
       "label": "Wisconsin average hourly earnings, private sector",
       "latest": {
-        "period": "2026-06",
-        "period_name": "June 2026",
-        "value": 34.26
+        "period": "2026-07",
+        "period_name": "July 2026",
+        "value": 34.27
       },
       "history": [
         {
@@ -6027,7 +6027,11 @@
         },
         {
           "period": "2026-06",
-          "value": 34.26
+          "value": 34.35
+        },
+        {
+          "period": "2026-07",
+          "value": 34.27
         }
       ],
       "unit": "per hour",
@@ -6037,7 +6041,7 @@
   "weekly_fuel": {
     "label": "Pump prices this week",
     "geography_label": "Midwest (PADD 2)",
-    "latest_date": "2026-08-10",
+    "latest_date": "2026-08-24",
     "items": [
       {
         "key": "gasoline_weekly",
@@ -6048,22 +6052,14 @@
         "source": "eia",
         "series_id": "PET.EMM_EPMR_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-08-10",
-          "value": 3.816
+          "date": "2026-08-24",
+          "value": 3.934
         },
-        "prior_week_value": 3.929,
-        "year_ago_value": 2.997,
-        "change_wow_pct": -2.9,
-        "change_yoy_pct": 27.3,
+        "prior_week_value": 3.938,
+        "year_ago_value": 3.077,
+        "change_wow_pct": -0.1,
+        "change_yoy_pct": 27.9,
         "history": [
-          {
-            "date": "2025-02-17",
-            "value": 2.982
-          },
-          {
-            "date": "2025-02-24",
-            "value": 2.938
-          },
           {
             "date": "2025-03-03",
             "value": 2.882
@@ -6367,6 +6363,14 @@
           {
             "date": "2026-08-10",
             "value": 3.816
+          },
+          {
+            "date": "2026-08-17",
+            "value": 3.938
+          },
+          {
+            "date": "2026-08-24",
+            "value": 3.934
           }
         ]
       },
@@ -6379,22 +6383,14 @@
         "source": "eia",
         "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-08-10",
-          "value": 5.181
+          "date": "2026-08-24",
+          "value": 5.636
         },
-        "prior_week_value": 5.262,
-        "year_ago_value": 3.747,
-        "change_wow_pct": -1.5,
-        "change_yoy_pct": 38.3,
+        "prior_week_value": 5.435,
+        "year_ago_value": 3.698,
+        "change_wow_pct": 3.7,
+        "change_yoy_pct": 52.4,
         "history": [
-          {
-            "date": "2025-02-17",
-            "value": 3.602
-          },
-          {
-            "date": "2025-02-24",
-            "value": 3.615
-          },
           {
             "date": "2025-03-03",
             "value": 3.551
@@ -6698,6 +6694,14 @@
           {
             "date": "2026-08-10",
             "value": 5.181
+          },
+          {
+            "date": "2026-08-17",
+            "value": 5.435
+          },
+          {
+            "date": "2026-08-24",
+            "value": 5.636
           }
         ]
       }
