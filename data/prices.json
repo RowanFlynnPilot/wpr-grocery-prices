@@ -4,12 +4,12 @@
     "source_url": "https://www.bls.gov/cpi/data.htm",
     "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
-    "latest_period": "September 2026",
-    "generated_utc": "2026-10-16T17:16:53Z",
+    "latest_period": "October 2026",
+    "generated_utc": "2026-10-27T18:25:03Z",
     "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
-  "summary": "The weekly staples cart costs $54.86 in May 2026, down 1.3% from a year ago. Diesel, on-highway rose the most over the year (+70.3%); Eggs, grade A, large fell the most (-34.9%).",
+  "summary": "The weekly staples cart costs $54.86 in May 2026, down 1.3% from a year ago. Diesel, on-highway rose the most over the year (+74.3%); Eggs, grade A, large fell the most (-34.9%).",
   "categories": [
     "Meat & eggs",
     "Dairy",
@@ -4681,14 +4681,14 @@
       "source": "eia",
       "series_id": "ELEC.PRICE.WI-RES.M",
       "latest": {
-        "period": "2026-07",
-        "period_name": "July 2026",
-        "value": 0.191
+        "period": "2026-08",
+        "period_name": "August 2026",
+        "value": 0.194
       },
-      "prior_month_value": 0.196,
-      "year_ago_value": 0.182,
-      "change_mom_pct": -2.6,
-      "change_yoy_pct": 4.9,
+      "prior_month_value": 0.191,
+      "year_ago_value": 0.184,
+      "change_mom_pct": 1.6,
+      "change_yoy_pct": 5.4,
       "history": [
         {
           "period": "2023-01",
@@ -4788,19 +4788,19 @@
         },
         {
           "period": "2025-01",
-          "value": 0.174
+          "value": 0.173
         },
         {
           "period": "2025-02",
-          "value": 0.174
+          "value": 0.173
         },
         {
           "period": "2025-03",
-          "value": 0.177
+          "value": 0.176
         },
         {
           "period": "2025-04",
-          "value": 0.182
+          "value": 0.181
         },
         {
           "period": "2025-05",
@@ -4808,7 +4808,7 @@
         },
         {
           "period": "2025-06",
-          "value": 0.185
+          "value": 0.186
         },
         {
           "period": "2025-07",
@@ -4816,23 +4816,23 @@
         },
         {
           "period": "2025-08",
-          "value": 0.185
+          "value": 0.184
         },
         {
           "period": "2025-09",
-          "value": 0.187
+          "value": 0.186
         },
         {
           "period": "2025-10",
-          "value": 0.184
+          "value": 0.183
         },
         {
           "period": "2025-11",
-          "value": 0.184
+          "value": 0.183
         },
         {
           "period": "2025-12",
-          "value": 0.178
+          "value": 0.177
         },
         {
           "period": "2026-01",
@@ -4861,6 +4861,10 @@
         {
           "period": "2026-07",
           "value": 0.191
+        },
+        {
+          "period": "2026-08",
+          "value": 0.194
         }
       ]
     },
@@ -5067,14 +5071,14 @@
       "source": "eia",
       "series_id": "PET.EMM_EPMR_PTE_R20_DPG.M",
       "latest": {
-        "period": "2026-09",
-        "period_name": "September 2026",
-        "value": 4.166
+        "period": "2026-10",
+        "period_name": "October 2026",
+        "value": 4.167
       },
-      "prior_month_value": 3.893,
-      "year_ago_value": 3.012,
-      "change_mom_pct": 7.0,
-      "change_yoy_pct": 38.3,
+      "prior_month_value": 4.166,
+      "year_ago_value": 2.856,
+      "change_mom_pct": 0.0,
+      "change_yoy_pct": 45.9,
       "history": [
         {
           "period": "2023-01",
@@ -5255,6 +5259,10 @@
         {
           "period": "2026-09",
           "value": 4.166
+        },
+        {
+          "period": "2026-10",
+          "value": 4.167
         }
       ]
     },
@@ -5268,14 +5276,14 @@
       "source": "eia",
       "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.M",
       "latest": {
-        "period": "2026-09",
-        "period_name": "September 2026",
-        "value": 6.351
+        "period": "2026-10",
+        "period_name": "October 2026",
+        "value": 6.344
       },
-      "prior_month_value": 5.417,
-      "year_ago_value": 3.73,
-      "change_mom_pct": 17.2,
-      "change_yoy_pct": 70.3,
+      "prior_month_value": 6.351,
+      "year_ago_value": 3.639,
+      "change_mom_pct": -0.1,
+      "change_yoy_pct": 74.3,
       "history": [
         {
           "period": "2023-01",
@@ -5456,6 +5464,10 @@
         {
           "period": "2026-09",
           "value": 6.351
+        },
+        {
+          "period": "2026-10",
+          "value": 6.344
         }
       ]
     }
@@ -6088,9 +6100,9 @@
       "series_id": "SMU55000000500000003",
       "label": "Wisconsin average hourly earnings, private sector",
       "latest": {
-        "period": "2026-08",
-        "period_name": "August 2026",
-        "value": 34.21
+        "period": "2026-09",
+        "period_name": "September 2026",
+        "value": 34.46
       },
       "history": [
         {
@@ -6267,7 +6279,11 @@
         },
         {
           "period": "2026-08",
-          "value": 34.21
+          "value": 34.24
+        },
+        {
+          "period": "2026-09",
+          "value": 34.46
         }
       ],
       "unit": "per hour",
@@ -6277,7 +6293,7 @@
   "weekly_fuel": {
     "label": "Pump prices this week",
     "geography_label": "Midwest (PADD 2)",
-    "latest_date": "2026-10-12",
+    "latest_date": "2026-10-26",
     "items": [
       {
         "key": "gasoline_weekly",
@@ -6288,22 +6304,14 @@
         "source": "eia",
         "series_id": "PET.EMM_EPMR_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-10-12",
-          "value": 4.145
+          "date": "2026-10-26",
+          "value": 4.269
         },
-        "prior_week_value": 4.109,
-        "year_ago_value": 2.812,
-        "change_wow_pct": 0.9,
-        "change_yoy_pct": 47.4,
+        "prior_week_value": 4.145,
+        "year_ago_value": 2.873,
+        "change_wow_pct": 3.0,
+        "change_yoy_pct": 48.6,
         "history": [
-          {
-            "date": "2025-04-21",
-            "value": 3.012
-          },
-          {
-            "date": "2025-04-28",
-            "value": 2.992
-          },
           {
             "date": "2025-05-05",
             "value": 3.027
@@ -6607,6 +6615,14 @@
           {
             "date": "2026-10-12",
             "value": 4.145
+          },
+          {
+            "date": "2026-10-19",
+            "value": 4.145
+          },
+          {
+            "date": "2026-10-26",
+            "value": 4.269
           }
         ]
       },
@@ -6619,22 +6635,14 @@
         "source": "eia",
         "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-10-12",
-          "value": 6.259
+          "date": "2026-10-26",
+          "value": 6.48
         },
-        "prior_week_value": 6.286,
-        "year_ago_value": 3.606,
-        "change_wow_pct": -0.4,
-        "change_yoy_pct": 73.6,
+        "prior_week_value": 6.352,
+        "year_ago_value": 3.715,
+        "change_wow_pct": 2.0,
+        "change_yoy_pct": 74.4,
         "history": [
-          {
-            "date": "2025-04-21",
-            "value": 3.475
-          },
-          {
-            "date": "2025-04-28",
-            "value": 3.456
-          },
           {
             "date": "2025-05-05",
             "value": 3.432
@@ -6938,6 +6946,14 @@
           {
             "date": "2026-10-12",
             "value": 6.259
+          },
+          {
+            "date": "2026-10-19",
+            "value": 6.352
+          },
+          {
+            "date": "2026-10-26",
+            "value": 6.48
           }
         ]
       }
