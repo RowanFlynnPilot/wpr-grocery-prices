@@ -5,7 +5,7 @@
     "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "October 2026",
-    "generated_utc": "2026-11-16T22:48:57Z",
+    "generated_utc": "2026-11-17T21:24:25Z",
     "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
@@ -6393,7 +6393,7 @@
   "weekly_fuel": {
     "label": "Pump prices this week",
     "geography_label": "Midwest (PADD 2)",
-    "latest_date": "2026-11-09",
+    "latest_date": "2026-11-16",
     "items": [
       {
         "key": "gasoline_weekly",
@@ -6404,18 +6404,14 @@
         "source": "eia",
         "series_id": "PET.EMM_EPMR_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-11-09",
-          "value": 3.868
+          "date": "2026-11-16",
+          "value": 3.604
         },
-        "prior_week_value": 4.102,
-        "year_ago_value": 2.91,
-        "change_wow_pct": -5.7,
-        "change_yoy_pct": 32.9,
+        "prior_week_value": 3.868,
+        "year_ago_value": 2.907,
+        "change_wow_pct": -6.8,
+        "change_yoy_pct": 24.0,
         "history": [
-          {
-            "date": "2025-05-19",
-            "value": 3.027
-          },
           {
             "date": "2025-05-26",
             "value": 3.018
@@ -6723,6 +6719,10 @@
           {
             "date": "2026-11-09",
             "value": 3.868
+          },
+          {
+            "date": "2026-11-16",
+            "value": 3.604
           }
         ]
       },
@@ -6735,18 +6735,14 @@
         "source": "eia",
         "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-11-09",
-          "value": 6.201
+          "date": "2026-11-16",
+          "value": 5.967
         },
-        "prior_week_value": 6.402,
-        "year_ago_value": 3.891,
-        "change_wow_pct": -3.1,
-        "change_yoy_pct": 59.4,
+        "prior_week_value": 6.201,
+        "year_ago_value": 3.913,
+        "change_wow_pct": -3.8,
+        "change_yoy_pct": 52.5,
         "history": [
-          {
-            "date": "2025-05-19",
-            "value": 3.481
-          },
           {
             "date": "2025-05-26",
             "value": 3.428
@@ -7054,6 +7050,10 @@
           {
             "date": "2026-11-09",
             "value": 6.201
+          },
+          {
+            "date": "2026-11-16",
+            "value": 5.967
           }
         ]
       }
