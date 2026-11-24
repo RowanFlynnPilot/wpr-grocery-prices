@@ -5,7 +5,7 @@
     "source_url_energy": "https://www.eia.gov/opendata/",
     "midwest_region": "Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, Wisconsin",
     "latest_period": "October 2026",
-    "generated_utc": "2026-11-17T21:24:25Z",
+    "generated_utc": "2026-11-24T22:48:42Z",
     "note": "Average retail prices. Food from BLS Average Price Data; energy from EIA (Wisconsin electricity & natural gas, Midwest/PADD 2 motor fuels). Items labeled 'U.S. city average' lack a current regional breakout. Data lags roughly two months.",
     "used_api_key": true
   },
@@ -4769,14 +4769,14 @@
       "source": "eia",
       "series_id": "ELEC.PRICE.WI-RES.M",
       "latest": {
-        "period": "2026-08",
-        "period_name": "August 2026",
+        "period": "2026-09",
+        "period_name": "September 2026",
         "value": 0.194
       },
-      "prior_month_value": 0.191,
-      "year_ago_value": 0.184,
-      "change_mom_pct": 1.6,
-      "change_yoy_pct": 5.4,
+      "prior_month_value": 0.194,
+      "year_ago_value": 0.186,
+      "change_mom_pct": 0.0,
+      "change_yoy_pct": 4.3,
       "history": [
         {
           "period": "2023-01",
@@ -4952,6 +4952,10 @@
         },
         {
           "period": "2026-08",
+          "value": 0.194
+        },
+        {
+          "period": "2026-09",
           "value": 0.194
         }
       ]
@@ -6200,9 +6204,9 @@
       "series_id": "SMU55000000500000003",
       "label": "Wisconsin average hourly earnings, private sector",
       "latest": {
-        "period": "2026-09",
-        "period_name": "September 2026",
-        "value": 34.46
+        "period": "2026-10",
+        "period_name": "October 2026",
+        "value": 34.64
       },
       "history": [
         {
@@ -6383,7 +6387,11 @@
         },
         {
           "period": "2026-09",
-          "value": 34.46
+          "value": 34.51
+        },
+        {
+          "period": "2026-10",
+          "value": 34.64
         }
       ],
       "unit": "per hour",
@@ -6393,7 +6401,7 @@
   "weekly_fuel": {
     "label": "Pump prices this week",
     "geography_label": "Midwest (PADD 2)",
-    "latest_date": "2026-11-16",
+    "latest_date": "2026-11-23",
     "items": [
       {
         "key": "gasoline_weekly",
@@ -6404,18 +6412,14 @@
         "source": "eia",
         "series_id": "PET.EMM_EPMR_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-11-16",
-          "value": 3.604
+          "date": "2026-11-23",
+          "value": 3.38
         },
-        "prior_week_value": 3.868,
-        "year_ago_value": 2.907,
-        "change_wow_pct": -6.8,
-        "change_yoy_pct": 24.0,
+        "prior_week_value": 3.604,
+        "year_ago_value": 2.858,
+        "change_wow_pct": -6.2,
+        "change_yoy_pct": 18.3,
         "history": [
-          {
-            "date": "2025-05-26",
-            "value": 3.018
-          },
           {
             "date": "2025-06-02",
             "value": 2.967
@@ -6723,6 +6727,10 @@
           {
             "date": "2026-11-16",
             "value": 3.604
+          },
+          {
+            "date": "2026-11-23",
+            "value": 3.38
           }
         ]
       },
@@ -6735,18 +6743,14 @@
         "source": "eia",
         "series_id": "PET.EMD_EPD2DXL0_PTE_R20_DPG.W",
         "latest": {
-          "date": "2026-11-16",
-          "value": 5.967
+          "date": "2026-11-23",
+          "value": 5.671
         },
-        "prior_week_value": 6.201,
-        "year_ago_value": 3.913,
-        "change_wow_pct": -3.8,
-        "change_yoy_pct": 52.5,
+        "prior_week_value": 5.967,
+        "year_ago_value": 3.85,
+        "change_wow_pct": -5.0,
+        "change_yoy_pct": 47.3,
         "history": [
-          {
-            "date": "2025-05-26",
-            "value": 3.428
-          },
           {
             "date": "2025-06-02",
             "value": 3.388
@@ -7054,6 +7058,10 @@
           {
             "date": "2026-11-16",
             "value": 5.967
+          },
+          {
+            "date": "2026-11-23",
+            "value": 5.671
           }
         ]
       }
